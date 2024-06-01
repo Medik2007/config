@@ -1,0 +1,12 @@
+{
+    "layer":"overlay",
+    "position": "bottom",
+    "height": 21,
+    "margin-top":-21,
+
+    "modules-center":["custom/center"],
+
+    "custom/center": {
+        "exec": "~/.config/waybar/modules/center/main.sh",
+    },
+}

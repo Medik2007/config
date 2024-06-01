@@ -26,5 +26,5 @@ while true; do
 
     echo $result
 
-    inotifywait $HOME/.config/waybar/modules/center/trigger > /dev/null
+    inotifywait $HOME/.config/waybar/modules/center/trigger.tmp > /dev/null
 done

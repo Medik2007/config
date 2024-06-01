@@ -2,7 +2,7 @@
 
 path="$HOME/.config/waybar"
 source $path/switch_power.sh
-mode="$path/switch_mode"
+mode="$path/switch_mode.tmp"
 config_max="$path/config_max"
 config_min="$path/config_min"
 config="$path/config"

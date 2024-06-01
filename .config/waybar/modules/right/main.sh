@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trigger="$HOME/.config/waybar/modules/right/trigger"
+trigger="$HOME/.config/waybar/modules/right/trigger.tmp"
 
 render() {
     margin="      "

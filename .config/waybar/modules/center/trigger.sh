@@ -1,3 +1,3 @@
 #!/bin/bash
 
-echo $1 > $HOME/.config/waybar/modules/center/trigger
+echo $1 > $HOME/.config/waybar/modules/center/trigger.tmp

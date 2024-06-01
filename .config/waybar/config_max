@@ -18,3 +18,4 @@
         "exec": "~/.config/waybar/modules/left/main.sh",
     },
 }
+

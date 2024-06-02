@@ -17,8 +17,10 @@ render() {
     brightness=${brightness:1:-2}
 
     battery=$(cat /sys/class/power_supply/BAT1/capacity)
+    
+    language=$(hyprctl devices -j | jq -r '.keyboards[] | select(.name == "at-translated-set-2-keyboard") | .active_keymap' | cut -c 1-2 | tr 'a-z' 'A-Z')
 
-    echo "${date}${margin}${volume}%${margin}${brightness}%${margin}${battery}%"
+    echo "${language}${margin}${date}${margin}${volume}%${margin}${brightness}%${margin}${battery}%"
 }
 
 render

@@ -1,1 +1,2 @@
-NORMAL
+tesseract $path $txt -1 eng
+wl-copy "$(cat "${txt}.txt")"

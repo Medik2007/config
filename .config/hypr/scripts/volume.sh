@@ -10,5 +10,4 @@ if [ $volume != 0 ]; then
     volume=${volume::-3}
 fi
 
-notif=$HOME/.config/hypr/scripts/volume/notif.tmp
-echo $(notify-send -p -u low -r $(cat $notif) "Volume: $volume%") > $notif
+$HOME/run/notif/notif.sh low volume "Volume: $volume%"

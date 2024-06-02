@@ -11,5 +11,4 @@ $HOME/.config/waybar/modules/right/trigger.sh
 brightness=$(brightnessctl | grep "Current" | cut -f4- -d ' ')
 brightness=${brightness:1:-2}
 
-notif=$HOME/.config/hypr/scripts/brightness/notif.tmp
-echo $(notify-send -p -u low -r $(cat $notif) "Brightnesss: $brightness%") > $notif
+$HOME/run/notif/notif.sh low brightness "Brightnesss: $brightness%"

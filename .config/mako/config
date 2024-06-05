@@ -22,7 +22,7 @@ border-color=#6e6e6e
 
 [urgency=high]
 border-color=#bf616a
-default-timeout=0
+default-timeout=300000
 
 [mode=do-not-disturb]
 invisible=1

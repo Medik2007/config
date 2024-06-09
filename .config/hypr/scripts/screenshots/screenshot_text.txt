@@ -1,1 +1,1 @@
-nv .gitignore
+sudo systemctl start xrdp

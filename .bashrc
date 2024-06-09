@@ -21,3 +21,5 @@ source ~/.local/share/blesh/ble.sh
 source ~/run/run.sh
 
 [[ ! -d "$HOME/Downloads/" ]] || rmdir $HOME/Downloads/
+[[ ! -d "$HOME/Documents/" ]] || rmdir $HOME/Documents/
+[[ ! -d "$HOME/Desktop/" ]] || rmdir $HOME/Desktop/

@@ -18,7 +18,7 @@ alias grep='grep --color=auto'
 
 PS1='\W> '
 source ~/.local/share/blesh/ble.sh
-source ~/run/run.sh
+source ~/run/utils/run.sh
 
 [[ ! -d "$HOME/Downloads/" ]] || rmdir $HOME/Downloads/
 [[ ! -d "$HOME/Documents/" ]] || rmdir $HOME/Documents/

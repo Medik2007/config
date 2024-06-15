@@ -23,6 +23,27 @@ __dir_backup() {
     fi
 }
 
+__projects_check() {
+    cd ~/prj
+
+    repo_exclude=('config' 'archive')
+    gh_prj=$(($(gh repo list | wc -l) - ${#repo_exclude[@]}))
+    local_prj=$(find . -maxdepth 1 -type d ! -name "." | wc -l)
+
+    repo_exclude_jq=$(printf '%s\n' "${repo_exclude[@]}" | jq -R . | jq -s .)
+    projects=$(gh repo list --json name |
+               jq -r --argjson names "$repo_exclude_jq" '.[] | select(.name as $name | $names | index($name) | not)' |
+               jq -r '.name')
+
+    if [[ $local_prj -lt $gh_prj ]]; then
+        for prj in projects; do
+            if [[ ! -d $prj ]]; then
+                gh repo clone $prj
+            fi
+        done
+    fi
+}
+
 
 backup() {
     path="$HOME/run/backup"
@@ -54,7 +75,7 @@ backup() {
 clear_backups() {
     echo -n "Are you sure you want to delete all backups? (y/N) "
     read char
-    if [[ char == 'y' ]]; then
+    if [[ false ]]; then
         cd ~/run
         gh repo delete --yes
         rm -rf .git/

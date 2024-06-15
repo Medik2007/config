@@ -53,11 +53,11 @@ __projects_check() {
 
 backup() {
     cd
-    echo "System backup"
+    echo "==> System backup"
     echo
     __dir_backup config
     echo
-    echo "Projects backup"
+    echo "==> Projects backup"
     mkdir -p prj
     cd ~/prj
     for dir in /$PWD/*/; do

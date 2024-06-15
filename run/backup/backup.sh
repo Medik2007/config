@@ -52,7 +52,6 @@ __projects_check() {
 
 
 backup() {
-    __projects_check
     cd
     echo "===> System backup"
     echo

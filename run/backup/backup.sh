@@ -2,7 +2,6 @@
 
 
 __dir_backup() {
-    echo "Moving to $1"
     if [ ! -d ".git" ]; then
         echo "\nNo git repo was found"
         git init -q

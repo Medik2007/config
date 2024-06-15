@@ -27,9 +27,13 @@ __dir_backup() {
 backup() {
     path="$HOME/run/backup"
 
+    echo "System backup"
+    echo
+
     cd
     __dir_backup config
 
+    echo "Projects backup"
     echo
 
     cd ~/prj

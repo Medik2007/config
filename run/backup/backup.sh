@@ -23,7 +23,9 @@ __dir_backup() {
     fi
 }
 
+
 __projects_check() {
+    echo Checking that all projects are installed
     cd ~/prj
 
     repo_exclude=('config' 'archive')
@@ -31,32 +33,33 @@ __projects_check() {
     local_prj=$(find . -maxdepth 1 -type d ! -name "." | wc -l)
 
     repo_exclude_jq=$(printf '%s\n' "${repo_exclude[@]}" | jq -R . | jq -s .)
-    projects=$(gh repo list --json name |
+    projects=($(gh repo list --json name |
                jq -r --argjson names "$repo_exclude_jq" '.[] | select(.name as $name | $names | index($name) | not)' |
-               jq -r '.name')
+               jq -r '.name'))
 
     if [[ $local_prj -lt $gh_prj ]]; then
-        for prj in projects; do
+        for prj in ${projects[@]}; do
             if [[ ! -d $prj ]]; then
+                echo
+                echo Installing "$prj" project
+                echo
                 gh repo clone $prj
             fi
         done
     fi
+    echo
+    echo All projects are installed
 }
 
 
 backup() {
-    path="$HOME/run/backup"
-
+    cd
     echo "System backup"
     echo
-
-    cd
     __dir_backup config
-
     echo
     echo "Projects backup"
-
+    mkdir -p prj
     cd ~/prj
     for dir in /$PWD/*/; do
         dir=${dir%*/}
@@ -67,7 +70,6 @@ backup() {
         __dir_backup ${dir}
         cd ..
     done
-
     cd
 }
 

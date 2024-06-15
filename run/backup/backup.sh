@@ -33,8 +33,8 @@ backup() {
     cd
     __dir_backup config
 
-    echo "Projects backup"
     echo
+    echo "Projects backup"
 
     cd ~/prj
     for dir in /$PWD/*/; do

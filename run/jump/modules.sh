@@ -30,11 +30,14 @@ jumpScad=(
 
 __jump_scad() {
     openscad $HOME/prj/$1/scad/main.scad &
-    jump prj $1 scad main.scad
+    cd prj/$1/scad
+    git pull origin master
+    nv main.scad
 }
 
 __jump_django() {
     cd ~/prj/$1
+    git pull origin master
     kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd $1 && nvim; exec $SHELL" &&
     (
         kitty @ set-tab-title "$1 server"

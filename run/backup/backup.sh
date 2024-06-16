@@ -54,6 +54,7 @@ __projects_check() {
 
 backup() {
     cd
+    echo
     echo "===> System backup"
     echo
     __dir_backup config

@@ -63,7 +63,7 @@ require("lazy").setup({
 })
 
 
-PATH = "/home/medik/.config/nvim/"
+PATH = os.getenv("HOME") .. "/.config/nvim/"
 dofile(PATH.."modules.lua")
 dofile(PATH.."lsp.lua")
 dofile(PATH.."scripts.lua")

@@ -66,7 +66,7 @@ backup() {
         dir=${dir%*/}
         dir=${dir##*/}
         echo
-        echo "=>${dir}"
+        echo "=> ${dir}"
         cd ${dir}
         __dir_backup ${dir}
         cd ..

@@ -73,34 +73,3 @@ backup() {
     done
     cd
 }
-
-
-clear_backups() {
-    echo -n "Are you sure you want to delete all backups? (y/N) "
-    read char
-    if [[ false ]]; then
-        cd ~/run
-        gh repo delete --yes
-        rm -rf .git/
-        
-        cd
-        gh repo delete --yes
-        rm -rf .git/
-
-        cd ~/stf/archive
-        gh repo delete --yes
-        rm -rf .git/
-
-        cd ~/prj
-        for dir in /$PWD/*/; do
-            dir=${dir%*/}
-            dir=${dir##*/}
-            echo
-            echo ${dir}
-            cd ${dir}
-            gh repo delete --yes
-            rm -rf .git/
-            cd ..
-        done
-    fi
-}

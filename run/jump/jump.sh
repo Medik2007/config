@@ -132,6 +132,10 @@ jump() {
             __jump_django $1; return 0
         fi
 
+        if [[ ${jumpDaphne[@]} =~ $in_arr ]]; then
+            __jump_daphne $1; return 0
+        fi
+
         if [[ ${jumpScad[@]} =~ $in_arr ]]; then
             __jump_scad $1; return 0
         fi

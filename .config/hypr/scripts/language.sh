@@ -1,8 +1,8 @@
 #!/bin/bash
 
-language=$(hyprctl devices -j | jq -r '.keyboards[] | select(.name == "at-translated-set-2-keyboard") | .active_keymap' | cut -c 1-2 | tr 'A-Z' 'a-z')
+language=$(hyprctl devices -j | jq -r '.keyboards[0].layout')
 
-if [[ $language == "en" ]]; then
+if [[ $language == "us" ]]; then
     hyprctl keyword input:kb_layout ru
     $HOME/.config/hypr/scripts/notifications/notif.sh low language "Switched to Russian"
 else

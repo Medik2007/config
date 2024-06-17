@@ -30,5 +30,11 @@
 !.config/OpenSCAD
 !.config/OpenSCAD/**
 
+!.config/bspwm
+!.config/bspwm/**
+
+!.config/sxhkd
+!.config/sxhkd/**
+
 **.tmp
 **.txt

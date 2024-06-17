@@ -22,6 +22,8 @@ jumpShorts=(
 jumpDjango=(
     "yp"
     "grace"
+)
+jumpDaphne=(
     "sim"
 )
 jumpScad=(
@@ -44,5 +46,17 @@ __jump_django() {
         source bin/activate
         cd $1
         ./manage.py runserver 
+    )
+}
+
+__jump_daphne() {
+    cd ~/prj/$1
+    git pull origin master
+    kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd $1 && nvim; exec $SHELL" &&
+    (
+        kitty @ set-tab-title "$1 server"
+        source bin/activate
+        cd $1
+        daphne -p 8000 sim.asgi:application & redis-server
     )
 }

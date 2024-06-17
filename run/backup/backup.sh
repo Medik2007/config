@@ -24,7 +24,7 @@ __dir_backup() {
 
 
 
-__projects_check() {
+projects_check() {
     echo Checking that all projects are installed
     cd ~/prj
 

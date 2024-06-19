@@ -30,25 +30,27 @@ cmp.setup.cmdline(':', {
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
+
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {
-    --'tsserver',
-    --'eslint',
-    'html',
-    'cssls',
-    'bashls',
-    'jsonls',
-    'clangd',
-    'pyright',
-    'openscad_lsp',
-    'lua_ls'
-  },
-  handlers = {
-    function(server)
-      lspconfig[server].setup({
-        capabilities = lsp_capabilities,
-      })
-    end,
-  }
+    ensure_installed = {
+        'html',
+        'cssls',
+        'bashls',
+        'jsonls',
+        'clangd',
+        'pyright',
+        'openscad_lsp',
+        'lua_ls',
+        'eslint',
+    },
+    handlers = {
+        function(server)
+            local setup = {capabilities = lsp_capabilities}
+            if server == "lua_ls" then
+                setup.settings = {Lua = {diagnostics = {globals = {'vim'}}}}
+            end
+            lspconfig[server].setup(setup)
+        end
+    }
 })

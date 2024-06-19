@@ -1,1 +1,2 @@
-Method "receive" overrides class "AsyncWebsocketConsumer" in an incompatible manner
+river_draw' is declared but its value is never read.
+

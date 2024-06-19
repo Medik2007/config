@@ -1,2 +1,1 @@
-river_draw' is declared but its value is never read.
-
+'sendMessage’' is defined but never used.

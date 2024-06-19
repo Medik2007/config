@@ -1,5 +1,6 @@
 source ~/run/jump/jump.sh
 source ~/run/backup/backup.sh
+source ~/run/update/update.sh
 source ~/run/utils/connect.sh
 source ~/run/utils/djrun.sh
 source ~/run/utils/convert.sh

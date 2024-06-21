@@ -8,7 +8,7 @@ update() {
     echo "===> Updating system configs"
     echo
     cd $HOME
-    git pull origin master
+    git pull origin master --rebase
     echo
 
     echo "===> Updating projects"
@@ -33,7 +33,7 @@ update() {
             echo
             echo "=> Updating "$prj" project"
             cd $prj
-            git pull origin master
+            git pull origin master --rebase
             cd ..
         fi
     done

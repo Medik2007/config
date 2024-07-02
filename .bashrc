@@ -12,7 +12,7 @@ alias act='source bin/activate'
 alias deact='deactivate'
 alias bashrc='source ~/.bashrc'
 alias ju='jump'
-alias steam='echo NO'
+#alias steam='echo NO'
 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'

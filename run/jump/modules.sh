@@ -22,6 +22,7 @@ jumpShorts=(
 jumpDjango=(
     "yp"
     "grace"
+    "portfolio"
 )
 jumpDaphne=(
     "sim"

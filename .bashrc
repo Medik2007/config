@@ -6,15 +6,18 @@
 [[ $- != *i* ]] && return
 
 alias reflect='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist'
-alias nv='nvim'
 alias fish='asciiquarium'
 alias act='source bin/activate'
 alias deact='deactivate'
 alias bashrc='source ~/.bashrc'
 alias ju='jump'
-#alias steam='echo NO'
+alias steam='echo NO'
 alias minecraft='java -jar ~/stf/TLauncher.v10/TLauncher.jar'
 
+alias kali='virtualboxvm --startvm Kali'
+alias windows='virtualboxvm --startvm Windows'
+
+alias nv='nvim'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
 

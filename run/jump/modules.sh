@@ -58,4 +58,3 @@ __jump_daphne() {
         daphne -p 8000 sim.asgi:application
     )
 }
-

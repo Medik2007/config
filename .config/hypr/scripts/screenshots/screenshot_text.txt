@@ -1,1 +1,1 @@
-#805c2d
+python netcat.py -t 192.168.1.203 -p 5555

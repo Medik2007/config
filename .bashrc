@@ -11,7 +11,7 @@ alias act='source bin/activate'
 alias deact='deactivate'
 alias bashrc='source ~/.bashrc'
 alias ju='jump'
-alias steam='echo NO'
+#alias steam='echo NO'
 alias minecraft='java -jar ~/stf/TLauncher.v10/TLauncher.jar'
 
 alias kali='virtualboxvm --startvm Kali'

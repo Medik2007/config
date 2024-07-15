@@ -14,7 +14,7 @@ alias ju='jump'
 #alias steam='echo NO'
 alias minecraft='java -jar ~/stf/TLauncher.v10/TLauncher.jar'
 
-alias kali='virtualboxvm --startvm Kali'
+alias kali='virtualboxvm --startvm Kali & exit'
 alias windows='virtualboxvm --startvm Windows'
 
 alias nv='nvim'

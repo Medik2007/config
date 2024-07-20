@@ -2,7 +2,6 @@
 # ~/.bashrc
 #
 
-# If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
 alias bashrc='source ~/.bashrc'
@@ -21,9 +20,11 @@ alias grep='grep --color=auto'
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh
 
-[[ ! -d "$HOME/Downloads/" ]] || rmdir $HOME/Downloads/
-[[ ! -d "$HOME/Documents/" ]] || rmdir $HOME/Documents/
-[[ ! -d "$HOME/Desktop/" ]] || rmdir $HOME/Desktop/
+shopt -s autocd
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PS1='\n(\w)\n~> '
+
+[[ ! -d "$HOME/Downloads/" ]] || rmdir $HOME/Downloads/
+[[ ! -d "$HOME/Documents/" ]] || rmdir $HOME/Documents/
+[[ ! -d "$HOME/Desktop/" ]] || rmdir $HOME/Desktop/

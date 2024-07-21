@@ -3,10 +3,11 @@ sort=-time
 layer=overlay
 
 anchor=top-center
-width=300
 height=110
+width=300
 padding=0,5,10
 margin=10
+text-alignment=center
 
 border-size=2
 border-radius=15

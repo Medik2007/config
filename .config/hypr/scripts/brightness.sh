@@ -11,4 +11,4 @@ $HOME/.config/waybar/modules/right/trigger.sh
 brightness=$(brightnessctl | grep "Current" | cut -f4- -d ' ')
 brightness=${brightness:1:-2}
 
-$HOME/.config/hypr/scripts/notifications/notif.sh low brightness "Brightnesss: $brightness%"
+$HOME/.config/hypr/scripts/notifications/notif.sh low brightness "$brightness%"

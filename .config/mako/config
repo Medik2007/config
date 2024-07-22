@@ -17,9 +17,10 @@ background-color=#000000
 
 [urgency=low]
 border-color=#333333
+width=100
 
 [urgency=normal]
-border-color=#6e6e6e
+border-color=#333333
 
 [urgency=high]
 border-color=#bf616a

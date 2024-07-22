@@ -22,18 +22,18 @@ path="$path$i.png"
 if [[ $1 == "f" ]]; then
     grim $path
     wl-copy < $path
-    $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Screenshot saved"
+    $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Saved"
     
 elif [[ $1 == "p" ]]; then
     grim -g "$(slurp)" $path
     wl-copy < $path
-    $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Screenshot saved"
+    $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Saved"
 
 elif [[ $1 == "t" ]]; then
     txt="${path::-4}"
     grim -g "$(slurp)" $path
     tesseract $path $txt -l eng
     wl-copy "$(cat "${txt}.txt")"
-    $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Text copied"
+    $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Copied"
 fi
 

@@ -10,4 +10,4 @@ if [ $volume != 0 ]; then
     volume=${volume::-3}
 fi
 
-$HOME/.config/hypr/scripts/notifications/notif.sh low volume "Volume: $volume%"
+$HOME/.config/hypr/scripts/notifications/notif.sh low volume "$volume%"

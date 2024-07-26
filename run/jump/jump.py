@@ -1,7 +1,10 @@
 from readchar import readkey, key
 import subprocess
 import os
+import sys
 
+
+def clear_line(): sys.stdout.write('\x1b[1A') ; sys.stdout.write('\x1b[2K') #]]
 
 EXTENSIONS = {
     '.png':1,
@@ -14,181 +17,257 @@ COMMANDS = [
 ]
 
 
-def print_lines(lines):
-    for line in lines:
-        try:
-            print(line['name'])
-        except:
-            print('error')
-
-def clear_line(): print("\033[A                                 \033[A") #]]
-def gen_line(name, command, parent, isdir=False): return {'name':name, 'command':command, 'parent':parent, 'isdir':isdir, 'preview':False}
-def generate_lines(path, show_hidden, parent):
-    result = []
-    for name in os.listdir(path):
-        current_path = path + '/' + name
-        if not show_hidden and name.startswith('.'):
-            continue
-        _, ext = os.path.splitext(current_path)
-        if ext == '':
-            if os.path.isdir(current_path):
-                name += '/'
-                new_line = gen_line(name, 0, parent, True)
-            else:
-                new_line = gen_line(name, 1, parent)
-        else:
-            if ext in EXTENSIONS:
-                new_line = gen_line(name, EXTENSIONS[ext], parent)
-            else:
-                new_line = gen_line(name, 1, parent)
-        result.append(new_line)
-    return result
-
-def get_parents(line, lines):
-    parent = line['parent']
-    parents = [line]
-    while parent > 0:
-        parents.append(lines[parent])
-        parent = lines[parent]['parent']
-    return parents
-
-def get_path(line, lines):
-    parents = get_parents(line, lines)
-    path = ''
-    for parent in parents:
-        path = parent['name'] + path
-    return path
-
-
 class Lister:
     def __init__(self):
-        self.chosen = 1
-        self.printed = 0
-        self.lines = [{}]
+        self.counter = 0
+        self.chosen = 0
+        self.lines = {}
         self.show_hidden = False
+        self.input_mode = False
+        self.input_text = ''
 
 
-    def clear(self):
-        for _ in range(1, self.printed):
-            clear_line()
-        self.printed = 0
+    ##########
+    ## MAIN ##
+    ##########
 
+
+    def main(self, first_time=False):
+        if not first_time: self.clear()
+        self.counter = 1
+        self.chosen = 0
+        self.lines = {0:self.gen_line(0, '', 0, 0)}
+        self.generate_lines('.', 0)
+        self.draw()
+
+        try:
+            while True:
+                k = readkey()
+                if   k == key.RIGHT:  self.right()
+                elif k == key.LEFT:   self.left()
+                elif k == key.UP:     self.move(True)
+                elif k == key.DOWN:   self.move(False)
+                elif k == key.TAB:    self.set_input(False)
+                elif k == key.CTRL_L: os.system('clear') ; self.draw()
+                elif k == key.CTRL_H: self.hidden() ; break
+                elif not self.input_mode:
+                    if   k == key.ENTER:  self.right(True)
+                    elif k in ['=', '+']: self.enter() ; break
+                    elif k == '-': self.back()         ; break
+                    elif k == 'k': self.move(True)
+                    elif k == 'j': self.move(False)
+                    elif k == 'l': self.right()
+                    elif k == 'h': self.left()
+                    elif k == ':': self.set_input(True)
+                else:
+                    if   k == key.BACKSPACE: self.edit_input(backspace=True)
+                    elif k == key.SPACE:     self.input_space()
+                    elif k != key.ENTER:     self.edit_input(text=k)
+        except KeyboardInterrupt: self.clear() ; exit(0)
+
+    def gen_line(self, id, name, command, parent, isdir=False):
+        return {'id':id, 'name':name, 'command':command, 'parent':parent, 'isdir':isdir, 'children':[]}
+
+    def generate_lines(self, path, parent):
+        listdir = os.listdir(path)
+        input_text = self.input_text.split('_')[-1]
+        result = {}
+        ids = []
+        for name in listdir:
+            if not name.startswith(input_text):
+                continue
+            if not self.show_hidden and name.startswith('.'):
+                if len(input_text) == 0 or input_text[0] != '.':
+                    continue
+            current_path = path + '/' + name
+            _, ext = os.path.splitext(current_path)
+            if ext == '':
+                if os.path.isdir(current_path):
+                    name += '/'
+                    new_line = self.gen_line(self.counter, name, 0, parent, True)
+                else:
+                    new_line = self.gen_line(self.counter, name, 1, parent)
+            else:
+                if ext in EXTENSIONS:
+                    new_line = self.gen_line(self.counter, name, EXTENSIONS[ext], parent)
+                else:
+                    new_line = self.gen_line(self.counter, name, 1, parent)
+            result[self.counter] = new_line
+            ids.append(self.counter)
+            self.counter += 1
+
+        key = list(self.lines.keys()).index(parent)
+        lines = list(self.lines.items())
+        if parent != 0: lines[key+1:key+1] = result.items()
+        else:
+            lines[0:] = result.items()
+
+        self.lines = dict(lines)
+        return ids
+
+
+    ###########
+    ## INPUT ##
+    ###########
+
+
+    def set_input(self, var):
+        self.input_mode = var
+        self.clear()
+        self.draw()
+
+    def edit_input(self, text='', backspace=False):
+        if backspace:
+            if len(self.input_text) > 0:
+                if self.input_text[-1] == '_':
+                    self.input_text = self.input_text[:-1]
+                    self.back()
+                else:
+                    self.input_text = self.input_text[:-1]
+        else:
+            self.input_text += text
+        self.main()
+
+    def input_space(self):
+        if len(self.input_text) > 0 and len(self.lines) > 0 and self.input_text[-1] != '_':
+            self.input_text += '_'
+            self.enter()
+
+
+    ##########
+    ## GETS ##
+    ##########
+
+
+    def get_chosen(self):
+        return list(self.lines.keys())[self.chosen]
+
+    def get_parents(self, id):
+        parents = [id]
+        parent = self.lines[id]['parent']
+        while parent != 0:
+            parents.append(parent)
+            parent = self.lines[parent]['parent']
+        return parents
+
+    def get_path(self, id):
+        parents = self.get_parents(id)
+        path = ''
+        for parent in parents:
+            path = self.lines[parent]['name'] + path
+        return path
+
+
+    #############
+    ## DRAWING ##
+    #############
+
+
+    def draw_line(self, line):
+        info = f'' # For debugging
+        return f"{line['name']}{info}"
+
+    def draw_children(self, children, chosen, margin):
+        text_margin = ''
+        for _ in range(margin):
+            text_margin += '    '
+        for child in children:
+            if child == chosen:
+                print(f"{text_margin}=> {self.draw_line(self.lines[child])}")
+            else:
+                print(f"{text_margin}   {self.draw_line(self.lines[child])}")
+            if self.lines[child]['children']:
+                self.draw_children(self.lines[child]['children'], chosen, margin+1)
 
     def draw(self):
-        for i in range(1, len(self.lines)):
-            line = self.lines[i]
-            margin = ''
-            parents = get_parents(line, self.lines)
-            for _ in parents:
-                margin += '    '
-            if i == self.chosen:
-                print(f"{margin}=> {line['name']}")
-            else:
-                print(f"{margin}   {line['name']}")
-        self.printed += len(self.lines)
+        path = os.getcwd()
+        user_path = os.path.expanduser('~')
+        if path.startswith(user_path):
+            path = f'~{path[len(user_path):]}'
+            if path == '~': path = '~/'
+        print(f'{path}\n')
+        if len(self.lines) > 0:
+            chosen = self.get_chosen()
+            for i in self.lines.keys():
+                if i == 0: continue
+                line = self.lines[i]
+                if line['parent'] != 0:
+                    continue
+                if i == chosen:
+                    print(f"=> {self.draw_line(line)}")
+                else:
+                    print(f"   {self.draw_line(line)}")
+                if line['children']:
+                    self.draw_children(line['children'], chosen, 1)
+        if self.input_mode:
+            print(f'\n  :{self.input_text}')
+        else:
+            print(f'\n   {self.input_text}')
 
+    def clear(self):
+        for _ in range(len(self.lines) + 4):
+            clear_line()
+
+
+    #################
+    ## KEY PRESSES ##
+    #################
+
+
+    def enter(self):
+        line = self.lines[self.get_chosen()]
+        if line['parent'] != 0: line = self.lines[line['parent']]
+        if line['command'] == 0:
+            path = self.get_path(line['id'])
+            if os.listdir(path): os.chdir(path)
+        else:
+            command = COMMANDS[line['command']]
+            name = line['name']
+            subprocess.call([command, name])
+        self.main()
+
+    def back(self):
+        os.chdir('..')
+        self.main()
+
+    def right(self, reverse=False):
+        line = self.lines[self.get_chosen()]
+        if line['isdir'] and not line['children']:
+            self.clear()
+            path = self.get_path(line['id'])
+            new_ids = self.generate_lines(path, self.get_chosen())
+            self.lines[self.get_chosen()]['children'] = new_ids
+            self.draw()
+        elif reverse and line['children']:
+            self.left()
+
+    def delete_children(self, children):
+        for child in children:
+            if self.lines[child]['children']:
+                self.delete_children(self.lines[child]['children'])
+            del self.lines[child]
+    def left(self):
+        line = self.lines[self.get_chosen()]
+        if line['isdir'] and line['children']:
+            self.clear()
+            self.delete_children(line['children'])
+            self.lines[self.get_chosen()]['children'] = []
+            self.draw()
+
+    def hidden(self):
+        self.show_hidden = not self.show_hidden
+        self.main()
 
     def move(self, go_up):
-        if go_up and self.chosen > 1: self.chosen -= 1
+        if go_up and self.chosen > 0: self.chosen -= 1
         elif not go_up and self.chosen < len(self.lines)-1: self.chosen += 1
         self.clear()
         self.draw()
 
 
-    def choose(self):
-        self.clear()
-        self.chosen = 1
-        self.lines = [{}]
-        self.lines.extend(generate_lines('.', self.show_hidden, 0))
-
-        self.draw()
-        try:
-            while True:
-                k = readkey()
-                if   k == key.ENTER:              self.enter()     ; break
-                elif k == key.BACKSPACE:          self.backspace() ; break
-                elif k == 'h':                    self.hidden()    ; break
-                elif k == 'k' or k == key.UP:     self.move(True)
-                elif k == 'j' or k == key.DOWN:   self.move(False)
-                elif k == 'l' or k == key.RIGHT:  self.right()
-                elif k == 'h' or k == key.LEFT:   self.left()
-        except KeyboardInterrupt: pass
-        return os.getcwd()
-
-    def enter(self):
-        line = self.lines[self.chosen]
-        if line['command'] == 0:
-            os.chdir(get_path(line, self.lines))
-        else:
-            command = COMMANDS[line['command']]
-            name = line['name']
-            subprocess.call([command, name])
-        self.choose()
-
-    def backspace(self):
-        os.chdir('..')
-        self.choose()
-
-    def right(self):
-        line = self.lines[self.chosen]
-        if line['isdir'] and not line['preview']:
-            path = get_path(line, self.lines)
-            self.lines[self.chosen+1:self.chosen+1] = generate_lines(path, self.show_hidden, self.chosen)
-            self.lines[self.chosen]['preview'] = True
-            self.clear()
-            self.draw()
-
-    def left(self):
-        line = self.lines[self.chosen]
-        if line['isdir'] and line['preview']:
-            parents = get_parents(line, self.lines)
-            parents_ids = []
-            for parent in parents:
-                parents_ids.append(parent['parent'])
-            next = self.chosen + 1
-            while True:
-                if next == len(self.lines): break
-                elif self.lines[next]['parent'] in parents_ids: break
-                else:
-                    del self.lines[next]
-            self.lines[self.chosen]['preview'] = False
-            self.clear()
-            self.draw()
-
-    def hidden(self):
-        self.show_hidden = not self.show_hidden
-        self.choose()
-
-
-
 
 if __name__ == '__main__':
     lister = Lister()
-    cd = lister.choose()
-    lister.clear()
-    print(cd)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    lister.main(True)
 
 

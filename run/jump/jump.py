@@ -6,25 +6,77 @@ import sys
 
 def clear_line(): sys.stdout.write('\x1b[1A') ; sys.stdout.write('\x1b[2K') #]]
 
+# Lister
+
 EXTENSIONS = {
-    '.png':1,
+    '.png':2,
     '.mp4':3,
 }
 COMMANDS = [
+    'cd',
     'nvim',
     'feh',
     'mpv',
 ]
 
+# Jumper
+
+JUMP_DIRS = [
+    '.config/',
+    'prj/',
+    'run/',
+    'stf/books/',
+    'stf/iso/',
+    'stf/',
+]
+
+
+
+class Jumper:
+    def __init__(self, dest):
+        self.main(dest)
+
+    def check_env(self, path, dir):
+        if os.path.isfile('pyvenv.cfg'):
+            os.system(f'sh -c "source {path}/bin/activate && cd {path}/{dir} && nvim"')
+
+    def main(self, dest):
+        end = False
+        for dir in JUMP_DIRS:
+            if end: break
+            if os.path.isdir(f'{dir}{dest}'):
+                os.chdir(f'{dir}{dest}')
+                children = os.listdir('.')
+                for child in children:
+                    if child.startswith(dest):
+                        end = True
+                        if os.path.isdir(child):
+                            self.check_env(os.getcwd(), child)
+                        else:
+                            subprocess.run(['nvim', child])
+                    elif child.startswith('main'):
+                        end = True
+                        subprocess.run(['nvim', child])
+                    if end:
+                        break
+                if not end:
+                    end = True
+                    subprocess.run(['nvim'])
+        if not end:
+            lister = Lister(dest)
+            lister.main(True)
+
+
 
 class Lister:
-    def __init__(self):
+    def __init__(self, dir=''):
         self.counter = 0
         self.chosen = 0
         self.lines = {}
         self.show_hidden = False
         self.input_mode = False
         self.input_text = ''
+        if dir: os.chdir(dir)
 
 
     ##########
@@ -220,10 +272,6 @@ class Lister:
         if line['command'] == 0:
             path = self.get_path(line['id'])
             if os.listdir(path): os.chdir(path)
-        else:
-            command = COMMANDS[line['command']]
-            name = line['name']
-            subprocess.call([command, name])
         self.main()
 
     def back(self):
@@ -232,7 +280,14 @@ class Lister:
 
     def right(self, reverse=False):
         line = self.lines[self.get_chosen()]
-        if line['isdir'] and not line['children']:
+        if line['command'] != 0:
+            path = os.getcwd()
+            os.chdir(self.get_path(self.lines[line['parent']]['id']))
+            name = line['name']
+            command = COMMANDS[line['command']]
+            subprocess.run([command, name])
+            os.chdir(path)
+        elif line['isdir'] and not line['children']:
             self.clear()
             path = self.get_path(line['id'])
             new_ids = self.generate_lines(path, self.get_chosen())
@@ -240,6 +295,7 @@ class Lister:
             self.draw()
         elif reverse and line['children']:
             self.left()
+
 
     def delete_children(self, children):
         for child in children:
@@ -267,7 +323,14 @@ class Lister:
 
 
 if __name__ == '__main__':
-    lister = Lister()
-    lister.main(True)
+    argv = sys.argv
+    l = len(argv)
+    if l == 1:
+        lister = Lister()
+        lister.main(True)
+    elif l == 2:
+        Jumper(argv[1])
+    else:
+        print('Jump takes one or no arguments')
 
 

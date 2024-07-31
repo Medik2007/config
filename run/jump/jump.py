@@ -42,6 +42,8 @@ class Jumper:
 
     def main(self, dest):
         end = False
+        old_path = os.getcwd()
+        os.chdir(os.path.expanduser('~'))
         for dir in JUMP_DIRS:
             if end: break
             if os.path.isdir(f'{dir}{dest}'):
@@ -63,6 +65,7 @@ class Jumper:
                     end = True
                     subprocess.run(['nvim'])
         if not end:
+            os.chdir(old_path)
             lister = Lister(dest)
             lister.main(True)
 
@@ -76,7 +79,12 @@ class Lister:
         self.show_hidden = False
         self.input_mode = False
         self.input_text = ''
-        if dir: os.chdir(dir)
+        if dir:
+            if os.path.isdir(dir):
+                os.chdir(dir)
+            else:
+                self.input_text = dir
+                self.input_mode = True
 
 
     ##########
@@ -268,8 +276,15 @@ class Lister:
 
     def enter(self):
         line = self.lines[self.get_chosen()]
-        if line['parent'] != 0: line = self.lines[line['parent']]
-        if line['command'] == 0:
+        if line['command'] != 0:
+            self.input_text = self.input_text[:-1]
+            while self.input_text[-1] != '_':
+                self.input_text = self.input_text[:-1]
+            name = line['name']
+            command = COMMANDS[line['command']]
+            subprocess.run([command, name])
+        else:
+            if line['parent'] != 0: line = self.lines[line['parent']]
             path = self.get_path(line['id'])
             if os.listdir(path): os.chdir(path)
         self.main()
@@ -332,5 +347,4 @@ if __name__ == '__main__':
         Jumper(argv[1])
     else:
         print('Jump takes one or no arguments')
-
 

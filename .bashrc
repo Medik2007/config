@@ -14,7 +14,7 @@ alias kali='virtualboxvm --startvm Kali & exit'
 alias windows='virtualboxvm --startvm Windows'
 
 alias nv='nvim'
-alias ju='source ~/run/bin/activate && python ~/run/jump/jump.py'
+alias ju='python ~/run/jump/jump.py'
 alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'

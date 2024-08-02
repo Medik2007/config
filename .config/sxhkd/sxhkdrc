@@ -6,7 +6,7 @@
 ctrl + shift + q
 	kitty
 
-ctrl + shift + b
+ctrl + shift + Escape
 	qutebrowser
 
 ctrl + shift + @space

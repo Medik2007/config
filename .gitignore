@@ -36,5 +36,8 @@
 !.config/sxhkd
 !.config/sxhkd/**
 
+!.config/polybar
+!.config/polybar/**
+
 **.tmp
 **.txt

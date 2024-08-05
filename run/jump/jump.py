@@ -38,7 +38,11 @@ class Jumper:
 
     def check_env(self, path, dir):
         if os.path.isfile('pyvenv.cfg'):
-            os.system(f'sh -c "source {path}/bin/activate && cd {path}/{dir} && nvim"')
+            if os.path.isfile(f'{dir}/manage.py'):
+                os.system(f'kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd {dir} && nvim; exec $SHELL"')
+                os.system(f'sh -c "source {path}/bin/activate && cd {dir} && python manage.py runserver"')
+            else:
+                os.system(f'sh -c "source {path}/bin/activate && cd {path}/{dir} && nvim"')
 
     def main(self, dest):
         end = False
@@ -173,6 +177,7 @@ class Lister:
 
     def set_input(self, var):
         self.input_mode = var
+        if not var: self.input_text = ''
         self.clear()
         self.draw()
 
@@ -191,7 +196,7 @@ class Lister:
     def input_space(self):
         if len(self.input_text) > 0 and len(self.lines) > 0 and self.input_text[-1] != '_':
             self.input_text += '_'
-            self.enter()
+            self.enter(True)
 
 
     ##########
@@ -274,12 +279,13 @@ class Lister:
     #################
 
 
-    def enter(self):
+    def enter(self, text=False):
         line = self.lines[self.get_chosen()]
         if line['command'] != 0:
-            self.input_text = self.input_text[:-1]
-            while self.input_text[-1] != '_':
+            if text and self.input_text[-1] == '_':
                 self.input_text = self.input_text[:-1]
+                while self.input_text[-1] != '_':
+                    self.input_text = self.input_text[:-1]
             name = line['name']
             command = COMMANDS[line['command']]
             subprocess.run([command, name])
@@ -297,7 +303,8 @@ class Lister:
         line = self.lines[self.get_chosen()]
         if line['command'] != 0:
             path = os.getcwd()
-            os.chdir(self.get_path(self.lines[line['parent']]['id']))
+            if line['parent'] != 0:
+                os.chdir(self.get_path(self.lines[line['parent']]['id']))
             name = line['name']
             command = COMMANDS[line['command']]
             subprocess.run([command, name])

@@ -36,13 +36,19 @@ class Jumper:
     def __init__(self, dest):
         self.main(dest)
 
-    def check_env(self, path, dir):
+    def check_django(self, path, dir):
         if os.path.isfile('pyvenv.cfg'):
             if os.path.isfile(f'{dir}/manage.py'):
                 os.system(f'kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd {dir} && nvim; exec $SHELL"')
                 os.system(f'sh -c "source {path}/bin/activate && cd {dir} && python manage.py runserver"')
             else:
                 os.system(f'sh -c "source {path}/bin/activate && cd {path}/{dir} && nvim"')
+
+    def check_env(self, path):
+        if os.path.isfile('pyvenv.cfg'):
+            os.system(f'sh -c "source bin/activate && nvim {path}"')
+        else:
+            subprocess.run(['nvim', path])
 
     def main(self, dest):
         end = False
@@ -57,17 +63,17 @@ class Jumper:
                     if child.startswith(dest):
                         end = True
                         if os.path.isdir(child):
-                            self.check_env(os.getcwd(), child)
+                            self.check_django(os.getcwd(), child)
                         else:
-                            subprocess.run(['nvim', child])
+                            self.check_env(child)
                     elif child.startswith('main'):
                         end = True
-                        subprocess.run(['nvim', child])
+                        self.check_env(child)
                     if end:
                         break
                 if not end:
                     end = True
-                    subprocess.run(['nvim'])
+                    self.check_env('.')
         if not end:
             os.chdir(old_path)
             lister = Lister(dest)

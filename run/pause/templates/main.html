@@ -24,10 +24,13 @@
         $.ajax({
             type: 'POST',
             url: '/pause',
-            data: {'pause':true},
+            data: {'action':'translate'},
+            success: function(result) {
+                alert(result['translation'])
+            },
             error: function(error) {
                 console.log('Send data error:', error);
-            }
+            },
         });
     }
     </script>

@@ -2,49 +2,21 @@
 <html>
 <head>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='main.css')}}">
+    <script type="text/javascript" src="{{url_for('static', filename='main.js')}}" defer></script>
 </head>
 
 <body>
 
-    <div id="box">
-        <button class="btn" onclick="send_data(event, 'pause')"><h1>PAUSE</h1></button>
-        <button class="btn" onclick="send_data(event, 'translate')"><h1>TRANSLATE</h1></button>
+    <div id="menu">
+        <button id="menu-netflix" onclick="menu('netflix')"><h1>Netflix</h1></button>
+        <button id="menu-spotify" onclick="menu('spotify')"><h1>Spotify</h1></button>
+        <button id="menu-system" onclick="menu('system')"><h1>System Controls</h1></button>
     </div>
 
-    <style>
-    body {
-        margin: 0;
-    }
-    #box {
-        display: flex;
-        flex-direction: column;
-    }
-    .btn {
-        width: 100%;
-        height: 48vh;
-    }
-    </style>
-
-    <script>
-    function on_response(response) {
-        response = JSON.parse(response)
-        if (response.translation) {
-            alert(response.translation);
-        }
-    }
-    function send_data(e, act) {
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '/pause',
-            data: {'act':act},
-            success: on_response,
-            error: function(error) {
-                console.log('Send data error:', error);
-            },
-        });
-    }
-    </script>
+    <div id="netflix"></div>
+    <div id="spotify">Spoty</div>
+    <div id="system"></div>
 
 </body>
 </html>

@@ -5,17 +5,16 @@ import json
 
 app = Flask(__name__)
 
-TRANSLATE_CORDS = [subprocess.check_output(['cat', 'cords0.txt'], text=True), subprocess.check_output(['cat', 'cords1.txt'], text=True)]
-#TRANSLATE_CORDS = ["1729,752 1248x326", "1698,96 1050x337"]
+TRANSLATE_CORDS = [subprocess.check_output(['cat', 'tmp/cords0.txt'], text=True), subprocess.check_output(['cat', 'tmp/cords1.txt'], text=True)]
 
 
 def translate_screen(num):
     cords = TRANSLATE_CORDS[int(num)]
-    subprocess.run(f'grim -g "{cords[:-1]}" img{num}.png', shell=True)
-    subprocess.run(f'tesseract img{num}.png text{num} -l spa', shell=True)
-    text = subprocess.check_output(['cat', f'text{num}.txt'], text=True)
+    subprocess.run(f'grim -g "{cords[:-1]}" tmp/img{num}.png', shell=True)
+    subprocess.run(f'tesseract tmp/img{num}.png tmp/text{num} -l spa', shell=True)
+    text = subprocess.check_output(['cat', f'tmp/text{num}.txt'], text=True)
     if text:
-        return GoogleTranslator(source='auto', target='en').translate(subprocess.check_output(['cat', f'text{num}.txt'], text=True))
+        return GoogleTranslator(source='auto', target='en').translate(subprocess.check_output(['cat', f'tmp/text{num}.txt'], text=True))
     return ''
 
 
@@ -30,12 +29,12 @@ def pause():
         return json.dumps({'success':True})
     elif request.form['act'] == 'translate':
         subprocess.run('playerctl --all-players pause', shell=True)
-        translation = translate_screen('0')
-        if not translation:
-            translation = translate_screen('1')
-        print(translation)
+        translation = ''
+        translation += translate_screen('0')
+        translation += translate_screen('1')
+        if not translation: translation = 'Error: No translation'
         return json.dumps({'success':True, 'translation':translation})
     return json.dumps({'success':False})
 
 if __name__ == "__main__":
-    app.run(debug=True, host='192.168.1.9')
+    app.run(debug=True, host='192.168.1.6')

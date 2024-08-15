@@ -1,4 +1,4 @@
-#!/home/user/run/pause/bin/python
+#!/home/medik/run/pause/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

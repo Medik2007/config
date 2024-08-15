@@ -1,0 +1,16 @@
+* { margin: 0; padding: 0; }
+
+#menu {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    button {
+        width: 100%;
+    }
+    #menu-system {
+        height: 20%;
+    }
+    #menu-netflix, #menu-spotify {
+        height: 40%;
+    }
+}

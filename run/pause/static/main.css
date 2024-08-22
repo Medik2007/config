@@ -1,16 +1,14 @@
 * { margin: 0; padding: 0; }
 
-#menu {
+.list {
     display: flex;
     flex-direction: column;
     height: 100vh;
     button {
         width: 100%;
     }
-    #menu-system {
-        height: 20%;
-    }
-    #menu-netflix, #menu-spotify {
-        height: 40%;
-    }
 }
+
+.v20 { height: 20%; }
+.v25 { height: 25%; }
+.v40 { height: 40%; }

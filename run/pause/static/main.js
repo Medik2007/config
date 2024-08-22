@@ -1,10 +1,11 @@
 document.getElementById('system').style.display = "none";
-document.getElementById('netflix').style.display = "none";
+document.getElementById('browser').style.display = "none";
 document.getElementById('spotify').style.display = "none";
 
 function menu(act) {
+    document.getElementById('menu').style.display = "none";
     document.getElementById('system').style.display = "none";
-    document.getElementById('netflix').style.display = "none";
+    document.getElementById('browser').style.display = "none";
     document.getElementById('spotify').style.display = "none";
     document.getElementById(act).style.display = "block";
 }

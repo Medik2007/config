@@ -17,6 +17,10 @@ def translate_screen(num):
         return GoogleTranslator(source='auto', target='en').translate(subprocess.check_output(['cat', f'tmp/text{num}.txt'], text=True))
     return ''
 
+def playerctl(player, act):
+    subprocess.run(f'playerctl --player={player} {act}', shell=True)
+    return json.dumps({'success':True})
+
 
 @app.route('/')
 def main():
@@ -24,17 +28,27 @@ def main():
 
 @app.route('/pause', methods=['POST'])
 def pause():
-    if request.form['act'] == 'pause':
-        subprocess.run('playerctl --all-players play-pause', shell=True)
-        return json.dumps({'success':True})
-    elif request.form['act'] == 'translate':
-        subprocess.run('playerctl --all-players pause', shell=True)
-        translation = ''
-        translation += translate_screen('0')
-        translation += translate_screen('1')
-        if not translation: translation = 'Error: No translation'
-        return json.dumps({'success':True, 'translation':translation})
+    if   request.form['act'] == 'browser-pause': return playerctl('firefox', 'pause')
+    elif request.form['act'] == 'browser-play':  return playerctl('firefox', 'play')
+    elif request.form['act'] == 'spotify-pause': return playerctl('spotify', 'pause')
+    elif request.form['act'] == 'spotify-play':  return playerctl('spotify', 'play')
+    elif request.form['act'] == 'poweroff': subprocess.run('poweroff', shell=True)
+    elif request.form['act'] == 'reboot': subprocess.run('reboot', shell=True)
+    elif request.form['act'] == 'sleep': subprocess.run('systemctl suspend', shell=True)
     return json.dumps({'success':False})
 
 if __name__ == "__main__":
     app.run(debug=True, host='192.168.1.6')
+
+
+
+
+
+
+#elif request.form['act'] == 'translate':
+#    subprocess.run('playerctl --all-players pause', shell=True)
+#    translation = ''
+#    translation += translate_screen('0')
+#    translation += translate_screen('1')
+#    if not translation: translation = 'Error: No translation'
+#    return json.dumps({'success':True, 'translation':translation})

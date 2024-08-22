@@ -8,15 +8,28 @@
 
 <body>
 
-    <div id="menu">
-        <button id="menu-netflix" onclick="menu('netflix')"><h1>Netflix</h1></button>
-        <button id="menu-spotify" onclick="menu('spotify')"><h1>Spotify</h1></button>
-        <button id="menu-system" onclick="menu('system')"><h1>System Controls</h1></button>
+    <div id="menu" class="list">
+        <button class="v40" onclick="menu('browser')"><h1>Browser</h1></button>
+        <button class="v40" onclick="menu('spotify')"><h1>Spotify</h1></button>
+        <button class="v20" onclick="menu('system')"><h1>System Controls</h1></button>
     </div>
 
-    <div id="netflix"></div>
-    <div id="spotify">Spoty</div>
-    <div id="system"></div>
+    <div id="browser" class="list">
+        <button class="v40" onclick="send_data(event, 'browser-pause')"><h1>Pause Browser</h1></button>
+        <button class="v40" onclick="send_data(event, 'browser-play')"><h1>Continue Browser</h1></button>
+        <button class="v20" onclick="menu('menu')"><h1>Return to menu</h1></button>
+    </div>
+    <div id="spotify" class="list">
+        <button class="v40" onclick="send_data(event, 'spotify-pause')"><h1>Pause Spotify</h1></button>
+        <button class="v40" onclick="send_data(event, 'spotify-play')"><h1>Continue Spotify</h1></button>
+        <button class="v20" onclick="menu('menu')"><h1>Return to menu</h1></button>
+    </div>
+    <div id="system" class="list">
+        <button class="v25" onclick="send_data(event, 'poweroff')"><h1>Poweroff</h1></button>
+        <button class="v25" onclick="send_data(event, 'reboot')"><h1>Reboot</h1></button>
+        <button class="v25" onclick="send_data(event, 'sleep')"><h1>Sleep</h1></button>
+        <button class="v25" onclick="menu('menu')"><h1>Return to menu</h1></button>
+    </div>
 
 </body>
 </html>

@@ -274,9 +274,13 @@ class Lister:
             print(f'\n  :{self.input_text}')
         else:
             print(f'\n   {self.input_text}')
+        for i in self.lines.keys():
+            print(str(self.lines[i]))
 
     def clear(self):
         for _ in range(len(self.lines) + 4):
+            clear_line()
+        for _ in self.lines.keys():
             clear_line()
 
 

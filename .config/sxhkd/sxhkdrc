@@ -3,11 +3,11 @@
 #
 
 # terminal emulator
-ctrl + shift + q
+ctrl + shift + c
 	kitty
 
-ctrl + shift + Escape
-	qutebrowser
+ctrl + shift + b
+    firefox
 
 ctrl + shift + @space
 	dmenu_run

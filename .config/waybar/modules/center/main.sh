@@ -1,8 +1,8 @@
 #!/bin/bash
 
 
-echo "● ○ ○"
-inotifywait $HOME/.config/waybar/modules/center/trigger.tmp > /dev/null
+#echo "● ○ ○"
+#inotifywait $HOME/.config/waybar/modules/center/trigger.tmp > /dev/null
 
 while true; do
     workspaces=(0 0 0 0 0 0 0 0 0 0)

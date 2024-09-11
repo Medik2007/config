@@ -1,3 +1,4 @@
+from re import sub
 from readchar import readkey, key
 import subprocess
 import os
@@ -36,13 +37,16 @@ class Jumper:
     def __init__(self, dest):
         self.main(dest)
 
-    def check_django(self, path, dir):
+    def check_python(self, path, dir):
         if os.path.isfile('pyvenv.cfg'):
             if os.path.isfile(f'{dir}/manage.py'):
                 os.system(f'kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd {dir} && nvim; exec $SHELL"')
                 os.system(f'sh -c "source {path}/bin/activate && cd {dir} && python manage.py runserver"')
             else:
-                os.system(f'sh -c "source {path}/bin/activate && cd {path}/{dir} && nvim"')
+                #os.system(f'kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd {dir} && nvim; exec $SHELL"')
+                subprocess.run(f'source {path}/bin/activate', shell=True)
+                subprocess.run(f'cd {dir}', shell=True)
+                print('bruh')
 
     def check_env(self, path):
         if os.path.isfile('pyvenv.cfg'):
@@ -63,7 +67,7 @@ class Jumper:
                     if child.startswith(dest):
                         end = True
                         if os.path.isdir(child):
-                            self.check_django(os.getcwd(), child)
+                            self.check_python(os.getcwd(), child)
                         else:
                             self.check_env(child)
                     elif child.startswith('main'):

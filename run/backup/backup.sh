@@ -33,13 +33,15 @@ backup() {
     mkdir -p prj
     cd ~/prj
     for dir in /$PWD/*/; do
-        dir=${dir%*/}
-        dir=${dir##*/}
-        echo
-        echo "=> ${dir}"
-        cd ${dir}
-        __dir_backup ${dir}
-        cd ..
+        if [[ $a != .* ]]; then
+            dir=${dir%*/}
+            dir=${dir##*/}
+            echo
+            echo "=> ${dir}"
+            cd ${dir}
+            __dir_backup ${dir}
+            cd ..
+        fi
     done
     cd
 }

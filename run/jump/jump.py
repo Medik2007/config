@@ -37,16 +37,6 @@ class Jumper:
     def __init__(self, dest):
         self.main(dest)
 
-    def check_python(self, path, dir):
-        if os.path.isfile('pyvenv.cfg'):
-            if os.path.isfile(f'{dir}/manage.py'):
-                os.system(f'kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd {dir} && nvim; exec $SHELL"')
-                os.system(f'sh -c "source {path}/bin/activate && cd {dir} && python manage.py runserver"')
-            else:
-                #os.system(f'kitty @ launch --type tab --cwd current sh -c "source bin/activate && cd {dir} && nvim; exec $SHELL"')
-                subprocess.run(f'source {path}/bin/activate', shell=True)
-                subprocess.run(f'cd {dir}', shell=True)
-                print('bruh')
 
     def main(self, dest):
         end = False
@@ -57,8 +47,13 @@ class Jumper:
             if os.path.isdir(f'{dir}{dest}'):
                 os.chdir(f'{dir}{dest}')
                 if os.path.isdir(f'/home/medik/prj/.venv/{dest}'):
-                    os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate"')
-                os.system('nvim')
+                    if os.path.isfile(f'manage.py'):
+                        os.system(f'kitty @ launch --type tab --cwd current sh -c "source ~/prj/.venv/{dest}/bin/activate && nvim; exec $SHELL"')
+                        os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate && python manage.py runserver"')
+                    else:
+                        os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate && nvim"')
+                else:
+                    os.system('nvim')
                 end = True
         if not end:
             os.chdir(old_path)

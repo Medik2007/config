@@ -48,12 +48,6 @@ class Jumper:
                 subprocess.run(f'cd {dir}', shell=True)
                 print('bruh')
 
-    def check_env(self, path):
-        if os.path.isfile('pyvenv.cfg'):
-            os.system(f'sh -c "source bin/activate && nvim {path}"')
-        else:
-            subprocess.run(['nvim', path])
-
     def main(self, dest):
         end = False
         old_path = os.getcwd()
@@ -62,22 +56,10 @@ class Jumper:
             if end: break
             if os.path.isdir(f'{dir}{dest}'):
                 os.chdir(f'{dir}{dest}')
-                children = os.listdir('.')
-                for child in children:
-                    if child.startswith(dest):
-                        end = True
-                        if os.path.isdir(child):
-                            self.check_python(os.getcwd(), child)
-                        else:
-                            self.check_env(child)
-                    elif child.startswith('main'):
-                        end = True
-                        self.check_env(child)
-                    if end:
-                        break
-                if not end:
-                    end = True
-                    self.check_env('.')
+                if os.path.isdir(f'/home/medik/prj/.venv/{dest}'):
+                    os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate"')
+                os.system('nvim')
+                end = True
         if not end:
             os.chdir(old_path)
             lister = Lister(dest)

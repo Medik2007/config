@@ -16,7 +16,7 @@ __dir_backup() {
     if [[ $(git diff --cached --name-only | wc -l) -gt 0 ]]; then
         echo "Uploading changes..."
         git commit -m "Backup"
-        git push origin master
+        git push -f origin master
     else
         echo "There are no changes"
     fi

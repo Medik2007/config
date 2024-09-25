@@ -1,6 +1,11 @@
 #!/bin/bash
+
+change=5
+if [ $2 ]; then
+    change=$2
+fi
  
-wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%$1
+wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ $change%$1
 
 $HOME/.config/waybar/modules/right/trigger.sh
 

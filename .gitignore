@@ -39,5 +39,7 @@
 !.config/polybar
 !.config/polybar/**
 
+!.config/libinput-gestures.conf
+
 **.tmp
 **.txt

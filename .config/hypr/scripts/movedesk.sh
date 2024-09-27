@@ -4,25 +4,27 @@
 ws_all=$(hyprctl workspaces -j)
 ws_count=$(echo $ws_all | jq length)
 ws_active=$(hyprctl activeworkspace -j | jq -r '.id')
-passed=0
+current=$ws_active
+success=1
 
-echo $ws_all | jq -r
 
-for i in $(seq 0 $((ws_count-1))); do
-    id=$(echo $ws_all | jq -r ".[$i]" | jq -r ".id")
-    if [ $1 -eq 0 ]; then
-        if [ $id -eq $ws_active ]; then
-            echo $ws_all | jq -r ".[$((i-1))]"
-        fi
+while [ $current != 0 && $current != 11 ]; do
+    if [ $1 == 0 ]; then
+        current=$((current - 1))
     else
-        if [ $passed -eq 1 ]; then
-            echo $ws_all | jq -r ".[$((i))]" | jq -r ".id"
+        current=$((current + 1))
+    fi
+
+    for i in $(seq 0 $((ws_count-1))); do
+        id=$(echo $ws_all | jq -r ".[$i]" | jq -r ".id")
+        if [ $current == $id ]; then
+            hyprctl dispatch workspace $current
+            success=0
+            break
         fi
-        if [ $id -eq $ws_active ]; then
-            passed=1
-        fi
+    done
+
+    if [ $success == 0 ]; then
+        break
     fi
 done
-
-#hyprctl dispatch workspace $result
-

@@ -8,7 +8,7 @@ current=$ws_active
 success=1
 
 
-while [ $current != 0 && $current != 11 ]; do
+while [[ $current != 0 && $current != 11 ]]; do
     if [ $1 == 0 ]; then
         current=$((current - 1))
     else

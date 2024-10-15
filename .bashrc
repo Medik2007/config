@@ -19,6 +19,7 @@ alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
 alias grep='grep --color=auto'
+alias backoff='backup && poweroff'
 
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh

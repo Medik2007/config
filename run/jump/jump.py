@@ -1,4 +1,3 @@
-from re import sub
 from readchar import readkey, key
 import subprocess
 import os

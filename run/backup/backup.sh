@@ -3,7 +3,7 @@
 
 __dir_backup() {
     if [ ! -d ".git" ]; then
-        echo "\nNo git repo was found"
+        echo "No git repo was found"
         git init -q
         touch .gitignore
         ln .gitignore $HOME/run/backup/gitignore/$1

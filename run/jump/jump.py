@@ -48,7 +48,7 @@ class Jumper:
                 if os.path.isdir(f'/home/medik/prj/.venv/{dest}'):
                     if os.path.isfile(f'manage.py'):
                         os.system(f'kitty @ launch --type tab --cwd current sh -c "source ~/prj/.venv/{dest}/bin/activate && nvim; exec $SHELL"')
-                        os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate && python manage.py runserver"')
+                        os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate && python manage.py runserver 0.0.0.0:8000"')
                     else:
                         os.system(f'sh -c "source ~/prj/.venv/{dest}/bin/activate && nvim"')
                 else:

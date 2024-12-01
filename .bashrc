@@ -20,7 +20,7 @@ alias l1='ls -1'
 alias ll='ls -goh'
 alias grep='grep --color=auto'
 alias backoff='backup && poweroff'
-alias back_pub='backup && printf "\n\n" && publish'
+alias back_pub='backup && printf "\n\n\n" && publish'
 alias bottle='prime-run bottles -b bottle'
 
 source ~/.local/share/blesh/ble.sh

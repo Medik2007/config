@@ -9,7 +9,7 @@ publish() {
     sshpass -f $psd ssh -t cz18090@185.114.247.170 $cmd
 }
 
-ssh_server() {
+server() {
     psd="$HOME/run/publish/portfolio.txt"
     sshpass -f $psd ssh cz18090@185.114.247.170
 }

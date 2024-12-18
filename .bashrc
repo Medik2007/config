@@ -17,6 +17,8 @@ alias ll='ls -goh'
 alias grep='grep --color=auto'
 alias backoff='backup && poweroff'
 alias back_pub='backup && printf "\n\n\n" && publish'
+alias bottle='prime-run bottles -b bottle'
+alias mods='cd ~/.local/share/bottles/bottles/fallout/drive_c/users/steamuser/Documents/Paradox\ Interactive/'
 
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh

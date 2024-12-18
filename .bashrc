@@ -4,10 +4,6 @@
 
 [[ $- != *i* ]] && return
 
-#alias steam='echo NO'
-alias minecraft='java -jar ~/stf/TLauncher.v10/TLauncher.jar'
-alias black='cd prj/books/BlackHatPython && source bin/activate && nv'
-
 alias bashrc='source ~/.bashrc'
 alias reflect='sudo reflector --latest 5 --age 2 --fastest 5 --protocol https --sort rate --save /etc/pacman.d/mirrorlist'
 alias kali='virtualboxvm --startvm Kali & exit'
@@ -21,7 +17,6 @@ alias ll='ls -goh'
 alias grep='grep --color=auto'
 alias backoff='backup && poweroff'
 alias back_pub='backup && printf "\n\n\n" && publish'
-alias bottle='prime-run bottles -b bottle'
 
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh

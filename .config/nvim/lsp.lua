@@ -43,6 +43,8 @@ require('mason-lspconfig').setup({
         'openscad_lsp',
         'lua_ls',
         'eslint',
+        'phpactor',
+        'phpstan',
     },
     handlers = {
         function(server)

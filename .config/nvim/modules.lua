@@ -15,7 +15,7 @@ require('nvim-ts-autotag').setup({
 })
 
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "c", "lua", "python", "javascript", "html", "css", "htmldjango", "cpp" },
+    ensure_installed = { "c", "lua", "python", "javascript", "html", "css", "htmldjango", "cpp", "php" },
     highlight = {enable = true}
 }
 

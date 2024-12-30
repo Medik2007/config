@@ -2,11 +2,11 @@
 
 
 if [[ $1 == "f" ]]; then
-    dir="$HOME/stf/img/screenshots/"
+    dir="$HOME/stf/img/"
 elif [[ $1 == "p" ]]; then
-    dir="$HOME/stf/img/screenshots/part/"
+    dir="$HOME/stf/img/"
 elif [[ $1 == "t" ]]; then
-    dir="$HOME/stf/img/screenshots/text/"
+    dir="$HOME/stf/img/text/"
 fi
 
 

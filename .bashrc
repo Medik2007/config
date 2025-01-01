@@ -6,16 +6,15 @@
 
 alias nv='nvim'
 alias ju='python ~/run/steve/jump.py'
-alias runserver='python manage.py runserver'
-alias bashrc='source ~/.bashrc'
+alias backup='python ~/run/steve/backup.py'
 
 alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
 alias grep='grep --color=auto'
 
-alias backoff='backup && poweroff'
-alias back_pub='backup && printf "\n\n\n" && publish'
+alias runserver='python manage.py runserver'
+alias bashrc='source ~/.bashrc'
 alias bottle='prime-run bottles -b bottle'
 
 source ~/.local/share/blesh/ble.sh

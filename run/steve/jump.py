@@ -3,7 +3,7 @@ import argparse, os, json, sys
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 try:
-    with open(f'{PATH}/data.json', 'r') as file:
+    with open(f'{PATH}/jump.json', 'r') as file:
         data = json.load(file)
 except FileNotFoundError:
     print("Data file not found.")
@@ -23,7 +23,7 @@ class Jump():
     def act_run(self, dest, command):
         return f'sh -c "source {VENV}{dest}/bin/activate && {command}; exec $SHELL"'
 
-    def jump(self, args):
+    def main(self, args):
         os.chdir(os.path.expanduser('~'))
         dest = args.destination
 
@@ -63,11 +63,11 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Jumping program")
 
     parser.add_argument("destination", help="Jump destination")
-    parser.add_argument('-s', '--server', action='store_false', help="Don't start django server")
-    parser.add_argument('-c', '--code',   action='store_false', help="Don't open code")
-    parser.add_argument('-j', '--jump-only', action='store_true', help="Don't start any programs, only cd")
+    parser.add_argument('-s', '--server', action='store_false', help="don't start django server")
+    parser.add_argument('-c', '--code',   action='store_false', help="don't open code")
+    parser.add_argument('-j', '--jump-only', action='store_true', help="don't start any programs, only cd")
 
     args = parser.parse_args()
 
     jump = Jump()
-    jump.jump(args)
+    jump.main(args)

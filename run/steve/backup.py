@@ -45,6 +45,7 @@ class Backup():
                     os.chdir('..')
 
         if args.publish:
+            print(f'\nPublishing {args.publish}')
             self.publish(args.publish)
         if args.poweroff:
             os.system('poweroff')

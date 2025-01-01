@@ -6,10 +6,9 @@ PATH = os.path.dirname(os.path.abspath(__file__))
 class Backup():
 
     def publish(self, repo):
-        with open(f'{PATH}/pswd.txt', 'r') as file:
-            pswd = file.read()
-        command = f"cd ~/{repo}/public_html && git pull origin master && python manage.py collectstatic --noinput"
-        os.system(f'sshpass -f {pswd} ssh -t cz18090@185.114.247.170 {command}')
+        server_cmd = f"cd {repo}/public_html && git pull origin master && python manage.py collectstatic --noinput"
+        local_cmd = f'sshpass -f {PATH}/pswd.txt ssh -t cz18090@185.114.247.170 "{server_cmd}"' 
+        os.system(local_cmd)
 
     def backup(self, repo):
         if not os.path.isdir('.git'):
@@ -28,21 +27,30 @@ class Backup():
             print('There are no changes')
 
     def main(self, args):
-        print('\n===> System backup\n')
         os.chdir(os.path.expanduser('~'))
-        self.backup('config')
-        print('\n===> Projects backup')
+        if not args.repo:
+            print('\n===> System backup\n')
+            self.backup('config')
+            
+            print('\n===> Projects backup')
+            if os.path.isdir('prj'):
+                os.chdir('prj')
+                for dir in os.listdir('.'):
+                    if dir[0] == '.':
+                        continue
+                    elif os.path.isdir(dir):
+                        print(f'\n=> {dir}')
+                        os.chdir(dir)
+                        self.backup(dir)
+                        os.chdir('..')
+        else:
+            if args.repo == 'config':
+                os.chdir(os.path.expanduser('~'))
+            else:
+                os.chdir('prj/' + args.repo)
+            print(f'\n=> {args.repo}')
+            self.backup(args.repo)
 
-        if os.path.isdir('prj'):
-            os.chdir('prj')
-            for dir in os.listdir('.'):
-                if dir[0] == '.':
-                    continue
-                elif os.path.isdir(dir):
-                    print(f'\n=> {dir}')
-                    os.chdir(dir)
-                    self.backup(dir)
-                    os.chdir('..')
 
         if args.publish:
             print(f'\nPublishing {args.publish}')
@@ -56,9 +64,14 @@ if __name__ == '__main__':
 
     parser.add_argument("-r", "--repo", type=str, help="backup only one repo", default=None)
     parser.add_argument("-p", "--publish", type=str, help="publish repo to server", default=None)
+    parser.add_argument("-pr", "--publish-repo", type=str, help="backup only one repo and publish it", default=None)
     parser.add_argument('-o', '--poweroff', action='store_true', help="poweroff after backup")
 
     args = parser.parse_args()
+
+    if args.publish_repo:
+        args.repo = args.publish_repo
+        args.publish = args.publish_repo
 
     backup = Backup()
     backup.main(args)

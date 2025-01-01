@@ -3,7 +3,7 @@ import argparse, os, json, sys
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 try:
-    with open(f'{PATH}/jump.json', 'r') as file:
+    with open(f'{PATH}/data/jump.json', 'r') as file:
         data = json.load(file)
 except FileNotFoundError:
     print("Data file not found.")
@@ -15,6 +15,7 @@ except json.JSONDecodeError:
 VENV      = os.path.expanduser(data['venv'])
 JUMP_DIRS = data['jump_dirs']
 SHORTCUTS = data['shortcuts']
+FUNCTIONS = data['functions']
 
 
 
@@ -29,6 +30,11 @@ class Jump():
 
         if dest in SHORTCUTS:
             os.system(f'sh -c "cd {os.path.expanduser(SHORTCUTS[dest])}; exec $SHELL"')
+            return
+
+        if dest in FUNCTIONS:
+            if dest == 'server':
+                os.system(f'sh -c "sshpass -f {PATH}/data/pswd.txt ssh cz18090@185.114.247.170; exec $SHELL"')
             return
         
         for dir in JUMP_DIRS:

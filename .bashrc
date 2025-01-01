@@ -5,13 +5,13 @@
 [[ $- != *i* ]] && return
 
 alias nv='nvim'
-alias ju='python ~/run/steve/jump.py'
-alias backup='python ~/run/steve/backup.py'
-
 alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
 alias grep='grep --color=auto'
+
+alias ju='python ~/run/jump.py'
+alias backup='python ~/run/backup.py'
 
 alias runserver='python manage.py runserver'
 alias bashrc='source ~/.bashrc'

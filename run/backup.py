@@ -7,7 +7,7 @@ class Backup():
 
     def publish(self, repo):
         server_cmd = f"cd {repo}/public_html && git pull origin master && python manage.py collectstatic --noinput"
-        local_cmd = f'sshpass -f {PATH}/pswd.txt ssh -t cz18090@185.114.247.170 "{server_cmd}"' 
+        local_cmd = f'sshpass -f {PATH}/data/pswd.txt ssh -t cz18090@185.114.247.170 "{server_cmd}"' 
         os.system(local_cmd)
 
     def backup(self, repo):

@@ -22,7 +22,7 @@ class Backup():
     def main(self):
         os.chdir(os.path.expanduser('~'))
         self.backup('config')
-        if os.chdir('prj/'):
+        if os.chdir('prj'):
             for dir in os.listdir('.'):
                 self.backup(dir)
 

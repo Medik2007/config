@@ -20,11 +20,20 @@ class Backup():
             print('There are no changes')
 
     def main(self):
+        print('\n===> System backup\n')
         os.chdir(os.path.expanduser('~'))
         self.backup('config')
-        if os.chdir('prj'):
+        print('\n===> Projects backup')
+        if os.path.isdir('prj'):
+            os.chdir('prj')
             for dir in os.listdir('.'):
-                self.backup(dir)
+                if dir[0] == '.':
+                    continue
+                elif os.path.isdir(dir):
+                    print(f'\n=> {dir}')
+                    os.chdir(dir)
+                    self.backup(dir)
+                    os.chdir('..')
 
 
 if __name__ == '__main__':

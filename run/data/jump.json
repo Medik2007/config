@@ -1,5 +1,6 @@
 {
     "jump_dirs":[
+        "",
         ".config/",
         "prj/",
         "run/"
@@ -8,5 +9,8 @@
         "mods":"~/.local/share/bottles/bottles/fallout/drive_c/users/steamuser/Documents/Paradox\\ Interactive/",
         "wp":"/srv/http/wordpress/"
     },
+    "functions":[
+        "server"
+    ],
     "venv":"~/prj/.venv/"
 }

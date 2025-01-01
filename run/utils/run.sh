@@ -1,4 +1,3 @@
-source ~/run/backup/backup.sh
 source ~/run/update/update.sh
 source ~/run/publish/publish.sh
 

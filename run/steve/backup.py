@@ -1,7 +1,15 @@
 import argparse, os
 
+PATH = os.path.dirname(os.path.abspath(__file__))
+
 
 class Backup():
+
+    def publish(self, repo):
+        with open(f'{PATH}/pswd.txt', 'r') as file:
+            pswd = file.read()
+        command = f"cd ~/{repo}/public_html && git pull origin master && python manage.py collectstatic --noinput"
+        os.system(f'sshpass -f {pswd} ssh -t cz18090@185.114.247.170 {command}')
 
     def backup(self, repo):
         if not os.path.isdir('.git'):
@@ -19,11 +27,12 @@ class Backup():
         else:
             print('There are no changes')
 
-    def main(self):
+    def main(self, args):
         print('\n===> System backup\n')
         os.chdir(os.path.expanduser('~'))
         self.backup('config')
         print('\n===> Projects backup')
+
         if os.path.isdir('prj'):
             os.chdir('prj')
             for dir in os.listdir('.'):
@@ -35,9 +44,20 @@ class Backup():
                     self.backup(dir)
                     os.chdir('..')
 
+        if args.publish:
+            self.publish(args.publish)
+        if args.poweroff:
+            os.system('poweroff')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Backup program")
 
+    parser.add_argument("-r", "--repo", type=str, help="backup only one repo", default=None)
+    parser.add_argument("-p", "--publish", type=str, help="publish repo to server", default=None)
+    parser.add_argument('-o', '--poweroff', action='store_true', help="poweroff after backup")
+
+    args = parser.parse_args()
+
     backup = Backup()
-    backup.main()
+    backup.main(args)

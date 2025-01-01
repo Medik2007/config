@@ -12,6 +12,7 @@ alias grep='grep --color=auto'
 
 alias ju='python ~/run/jump.py'
 alias backup='python ~/run/backup.py'
+alias kb='python ~/run/knowledge.py'
 
 alias runserver='python manage.py runserver'
 alias bashrc='source ~/.bashrc'

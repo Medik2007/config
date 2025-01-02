@@ -55,6 +55,6 @@
     "How to get the items of a dictionary in Python": "my_dict.items()",
     "How to update a dictionary in Python": "my_dict.update({'key': 'new_value'})",
     "How to create a datetime object in Python": "from datetime import datetime\ndt = datetime.now()",
-    "How to format a datetime object in Python": "dt.strftime('%Y-%m-%d')"
+    "How to format a datetime object in Python": "dt.strftime('%Y-%m-%d')",
+    "My day": "the day is pretty nice\ni feel good today\nyeyeye)))\n\nlove ya all ^^\n\the)\n\t\twow!\n\n\t\t\t\treally nice\n"
 }
-

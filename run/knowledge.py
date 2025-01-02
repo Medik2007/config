@@ -26,16 +26,19 @@ class Knowledge():
         query = query_text.split()
         result = {}
 
-        for word in query:
-            for record in data['commands'].keys():
-                if word.lower() in record.lower():
-                    if record in result.keys():
-                        result[record] += 1
+        for q in range(len(query)):
+            records = list(data['commands'].keys())
+            for r in range(len(records)):
+                if query[q].lower() in records[r].lower():
+                    offset = abs(q-r)/10
+                    if records[r] in result.keys():
+                        result[records[r]] += 1 + offset
                     else:
-                        result[record] = 1
+                        result[records[r]] = 1 + offset
 
         result = dict(sorted(result.items(), key=lambda item: item[1], reverse=True))
-        print('\n'.join(result))
+        for i in result.keys():
+            print(i, result[i])
 
 
     def main(self, args):

@@ -17,28 +17,23 @@ class Knowledge():
         command = input()
 
         data = self.read_data()
-        data['commands'][title] = command
+        data[title] = command
         self.write_data(data)
 
 
     def search(self, query_text):
-        data = self.read_data()
+        records = self.read_data().keys()
         query = query_text.split()
-        result = {}
+        answers = set(records)
 
-        for q in range(len(query)):
-            records = list(data['commands'].keys())
-            for r in range(len(records)):
-                if query[q].lower() in records[r].lower():
-                    offset = abs(q-r)/10
-                    if records[r] in result.keys():
-                        result[records[r]] += 1 + offset
-                    else:
-                        result[records[r]] = 1 + offset
+        for r in records:
+            for word in query:
+                if word.lower() not in r.lower():
+                    answers.remove(r)
 
-        result = dict(sorted(result.items(), key=lambda item: item[1], reverse=True))
-        for i in result.keys():
-            print(i, result[i])
+        answers = list(answers)
+        for i in range(len(answers)):
+            print(f'{i}. {answers[i]}')
 
 
     def main(self, args):

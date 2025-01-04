@@ -24,7 +24,7 @@ class Knowledge():
 
 
     def editor(self, lines):
-        pass
+        return lines
 
 
     def open_record(self, record=None, lines=[''], is_new=True):
@@ -64,7 +64,6 @@ class Knowledge():
 
         if lines[2].replace(' ', '') != '':
             lines.insert(2, '')
-
 
         data[title] = lines
         self.write_data(data)

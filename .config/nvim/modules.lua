@@ -3,6 +3,7 @@ require('nvim-autopairs').setup()
 require('mini.animate').setup()
 require("toggleterm").setup()
 require("mason").setup()
+require("glow").setup()
 
 require'colorizer'.setup({
     css = {

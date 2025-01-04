@@ -1,66 +1,10 @@
-import os, argparse, json, sys, tty, termios
+import os, argparse, json, os, tempfile
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 
-
-class Editor():
-    def get_key(self):
-        fd = sys.stdin.fileno()
-        old_settings = termios.tcgetattr(fd)
-        try:
-            tty.setraw(fd)  # Set terminal to raw mode
-            key = sys.stdin.read(1)  # Read a single character
-        finally:
-            termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)  # Restore settings
-        return key
-
-    def render(self, lines, cursor_row):
-        sys.stdout.write("\033[H\033[J")  # Clear the terminal]]
-        for i, line in enumerate(lines):
-            # Highlight the line with the cursor
-            if i == cursor_row:
-                sys.stdout.write(f"> {line}\n")
-            else:
-                sys.stdout.write(f"  {line}\n")
-
-    def main(self, lines):
-        cursor_row = 0
-        while True:
-            self.render(lines, cursor_row)
-            key = self.get_key()
-
-            if key == "\r": # Enter
-                cursor_row += 1
-                lines.insert(cursor_row, "")
-
-            elif key == "\x7f": # Backspace
-                if lines[cursor_row]:
-                    lines[cursor_row] = lines[cursor_row][:-1]
-                elif cursor_row > 0:
-                    lines.pop(cursor_row)
-                    cursor_row -= 1
-
-            elif key == "\033":  # Arrow keys
-                next_key = self.get_key()
-                if next_key == "[": # ]
-                    direction = self.get_key()
-                    if direction == "A" and cursor_row > 0: # Up
-                        cursor_row -= 1
-                    elif direction == "B" and cursor_row < len(lines) - 1: # Down
-                        cursor_row += 1
-
-            elif key == "\x03": # ^C
-                 break
-
-            else:
-                lines[cursor_row] += key
-
-
 class Knowledge():
-    def __init__(self):
-        self.editor = Editor()
     def read_data(self):
         with open(f'{PATH}/data/knowledge.json', 'r') as file:
             return json.load(file)
@@ -79,15 +23,51 @@ class Knowledge():
         return response
 
 
-    def open_record(self):
-        #title = input()
-        #print('~'*len(title) + '\n')
-        lines = [""]
-        self.editor.main(lines)
+    def editor(self, lines):
+        pass
 
-        #data = self.read_data()
-        #data[title] = text
-        #self.write_data(data)
+
+    def open_record(self, record=None, lines=[''], is_new=True):
+        data = self.read_data()
+        if record:
+            lines = data[record]
+            is_new = False
+        lines = self.editor(lines)
+
+        if lines[0].replace(' ', '') == '':
+            input("Enter the record's title as first line")
+            self.open_record(lines=lines)
+            return
+
+        title = lines[0]
+
+        if title in data and is_new:
+            while True:
+                print('There is already a record with such title')
+                print('O - Overwrite existing record with new input')
+                print('E - Edit new input')
+                action = input()
+                if action.lower() == 'o':
+                    print('Are you sure you want to overwrite existing record? (Y/n)')
+                    action = input()
+                    if action.lower() == 'y' or action.lower() == 'yes' or action == '':
+                        break
+                    else:
+                        print()
+                        continue
+                if action.lower == 'e':
+                    self.open_record(lines=lines, is_new=is_new)
+
+        if lines[1].replace(' ', '') == '':
+            lines[1] = 'Theme'
+        #theme = lines[1]
+
+        if lines[2].replace(' ', '') != '':
+            lines.insert(2, '')
+
+
+        data[title] = lines
+        self.write_data(data)
 
 
     def search(self, query):

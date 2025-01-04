@@ -3,7 +3,7 @@ import argparse, os, json, sys
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 try:
-    with open(f'{PATH}/data/jump.json', 'r') as file:
+    with open(f'{PATH}/config/jump.json', 'r') as file:
         data = json.load(file)
 except FileNotFoundError:
     print("Data file not found.")

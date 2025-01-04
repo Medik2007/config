@@ -63,6 +63,8 @@ require("lazy").setup({
 
     "JamshedVesuna/vim-markdown-preview",
     "ellisonleao/glow.nvim",
+
+    'kdheepak/lazygit.nvim',
 })
 
 

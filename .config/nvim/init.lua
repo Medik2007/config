@@ -60,6 +60,9 @@ require("lazy").setup({
 
     "williamboman/mason.nvim",
     'williamboman/mason-lspconfig.nvim',
+
+    "JamshedVesuna/vim-markdown-preview",
+    "ellisonleao/glow.nvim",
 })
 
 

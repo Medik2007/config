@@ -34,7 +34,7 @@ class Jump():
 
         if dest in FUNCTIONS:
             if dest == 'server':
-                os.system(f'sh -c "sshpass -f {PATH}/data/pswd.txt ssh cz18090@185.114.247.170; exec $SHELL"')
+                os.system(f'sh -c "sshpass -f {PATH}/config/pswd.txt ssh cz18090@185.114.247.170; exec $SHELL"')
             return
         
         for dir in JUMP_DIRS:
@@ -45,7 +45,7 @@ class Jump():
                 elif os.path.isdir(VENV + dest):
                     # DJANGO
                     if os.path.isfile(f'manage.py'):
-                        if args.server and args.code:
+                        if not args.server and not args.code:
                             os.system(f'kitty @ launch --type tab --cwd current {self.act_run(dest, "nvim")}')
                             os.system(self.act_run(dest, 'python manage.py runserver 0.0.0.0:8000'))
                         elif args.code:
@@ -53,11 +53,17 @@ class Jump():
                         elif args.server:
                             os.system(self.act_run(dest, 'python manage.py runserver 0.0.0.0:8000'))
                     # DEFAULT
-                    elif args.code:
+                    elif not args.server:
                         os.system(self.act_run(dest, 'nvim'))
                 elif not args.server:
                     os.system('nvim')
                 os.system(f'sh -c "cd ~/{dir}{dest}; exec $SHELL"')
+                break
+            elif os.path.isfile(f'{dir}{dest}'):
+                # FILE
+                if not args.server:
+                    os.system(f'nvim {dir}{dest}')
+                os.system(f'sh -c "cd ~/{dir}; exec $SHELL"')
                 break
         else:
             print('Jump destination not found')

@@ -40,10 +40,9 @@ class Jump():
         for dir in JUMP_DIRS:
             if os.path.isdir(f'{dir}{dest}'):
                 os.chdir(f'{dir}{dest}')
-                if args.jump_only:
-                    os.system(f'sh -c "cd ~/{dir}{dest}; exec $SHELL"')
-                    break
-                if os.path.isdir(VENV + dest):
+                if args.jump:
+                    pass
+                elif os.path.isdir(VENV + dest):
                     # DJANGO
                     if os.path.isfile(f'manage.py'):
                         if args.server and args.code:
@@ -56,7 +55,7 @@ class Jump():
                     # DEFAULT
                     elif args.code:
                         os.system(self.act_run(dest, 'nvim'))
-                elif args.code:
+                elif not args.server:
                     os.system('nvim')
                 os.system(f'sh -c "cd ~/{dir}{dest}; exec $SHELL"')
                 break
@@ -69,9 +68,9 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Jumping program")
 
     parser.add_argument("destination", help="Jump destination")
-    parser.add_argument('-s', '--server', action='store_false', help="don't start django server")
-    parser.add_argument('-c', '--code',   action='store_false', help="don't open code")
-    parser.add_argument('-j', '--jump-only', action='store_true', help="don't start any programs, only cd")
+    parser.add_argument('-c', '--code',   action='store_true', help="only open code")
+    parser.add_argument('-s', '--server', action='store_true', help="only start django server")
+    parser.add_argument('-j', '--jump', action='store_true', help="only jump, don't open any programs")
 
     args = parser.parse_args()
 

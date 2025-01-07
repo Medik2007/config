@@ -12,7 +12,7 @@ except json.JSONDecodeError:
     print("Data file is corrupted.")
     sys.exit(1)
 
-VENV      = os.path.expanduser (data['venv'])
+VENV      = os.path.expanduser(data['venv'])
 JUMP_DIRS = data['jump_dirs']
 SHORTCUTS = data['shortcuts']
 FUNCTIONS = data['functions']
@@ -38,6 +38,7 @@ class Jump():
             return
         
         for dir in JUMP_DIRS:
+            dir = os.path.expanduser(f'~/{dir}')
             if os.path.isdir(f'{dir}{dest}'):
                 os.chdir(f'{dir}{dest}')
                 if args.jump:
@@ -57,11 +58,10 @@ class Jump():
                         os.system(self.act_run(dest, 'nvim'))
                 elif not args.server:
                     os.system('nvim')
-                os.system(f'sh -c "cd ~/{dir}{dest}; exec $SHELL"')
+                os.system(f'sh -c "cd {dir}{dest}; exec $SHELL"')
                 return
             else:
                 # FILE
-                dir = os.path.expanduser(f'~/{dir}')
                 os.chdir(dir)
                 for file in os.listdir(dir):
                     if os.path.isfile(file) and file.startswith(dest):

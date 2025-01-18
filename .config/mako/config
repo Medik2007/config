@@ -20,8 +20,7 @@ border-color=#333333
 width=100
 
 [urgency=normal]
-border-color=#bf616a
-default-timeout=20000
+border-color=#333333
 
 [urgency=high]
 border-color=#bf616a

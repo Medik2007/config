@@ -18,6 +18,8 @@ alias runserver='python manage.py runserver'
 alias bashrc='source ~/.bashrc'
 alias bottle='prime-run bottles -b bottle'
 
+alias rest='sudo cp -r wp_rest /srv/http/wordpress/wp-content/themes/'
+
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh
 

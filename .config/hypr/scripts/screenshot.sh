@@ -32,7 +32,7 @@ elif [[ $1 == "p" ]]; then
 elif [[ $1 == "t" ]]; then
     txt="${path::-4}"
     grim -g "$(slurp)" $path
-    tesseract $path $txt -l eng
+    tesseract $path $txt -l rus
     wl-copy "$(cat "${txt}.txt")"
     $HOME/.config/hypr/scripts/notifications/notif.sh low screenshot "Copied"
 fi

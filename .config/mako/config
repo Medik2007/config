@@ -20,11 +20,9 @@ border-color=#333333
 width=100
 
 [urgency=normal]
-border-color=#333333
+border-color=#bf616a
+default-timeout=20000
 
 [urgency=high]
 border-color=#bf616a
-default-timeout=300000
-
-[mode=do-not-disturb]
-invisible=1
+default-timeout=600000

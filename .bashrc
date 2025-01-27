@@ -9,6 +9,7 @@ alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
 alias grep='grep --color=auto'
+alias feh='feh --keep-zoom-vp'
 
 alias ju='python ~/run/jump.py'
 alias backup='python ~/run/backup.py'

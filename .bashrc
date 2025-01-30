@@ -17,7 +17,7 @@ alias kb='python ~/run/knowledge.py'
 
 alias runserver='python manage.py runserver'
 alias bashrc='source ~/.bashrc'
-alias bottle='prime-run bottles -b bottle'
+alias bottle='prime-run bottles -b games'
 
 alias rest='sudo cp -r wp_rest /srv/http/wordpress/wp-content/themes/'
 

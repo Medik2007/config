@@ -50,6 +50,9 @@ require('mason-lspconfig').setup({
             if server == "lua_ls" then
                 setup.settings = {Lua = {diagnostics = {globals = {'vim'}}}}
             end
+            if server == "html" then
+                setup.settings = {html = {validate = { scripts = false }}}
+            end
             lspconfig[server].setup(setup)
         end
     }

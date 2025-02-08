@@ -6,7 +6,7 @@
         "run/"
     ],
     "shortcuts":{
-        "mods":"~/.local/share/bottles/bottles/fallout/drive_c/users/steamuser/Documents/Paradox\\ Interactive/",
+        "mods":"~/.local/share/bottles/bottles/games/drive_c/users/steamuser/Documents/Paradox\\ Interactive/",
         "wp":"/srv/http/wordpress/"
     },
     "functions":[

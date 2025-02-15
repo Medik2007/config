@@ -9,7 +9,7 @@ alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
 alias grep='grep --color=auto'
-alias feh='feh --keep-zoom-vp'
+alias feh='feh --keep-zoom-vp --draw-filename'
 
 alias ju='python ~/run/jump.py'
 alias backup='python ~/run/backup.py'
@@ -25,6 +25,7 @@ source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh
 
 shopt -s autocd
+shopt -s extglob
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 default_PS1

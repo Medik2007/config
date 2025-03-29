@@ -6,7 +6,7 @@ PATH = os.path.dirname(os.path.abspath(__file__))
 class Backup():
 
     def publish(self, repo):
-        server_cmd = f"cd {repo}/public_html && git pull origin master && python manage.py collectstatic --noinput"
+        server_cmd = f"cd {repo}/public_html && git pull origin master" # && python manage.py collectstatic --noinput
         local_cmd = f'sshpass -f {PATH}/config/pswd.txt ssh -t cz18090@185.114.247.170 "{server_cmd}"' 
         os.system(local_cmd)
 

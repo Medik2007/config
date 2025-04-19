@@ -21,6 +21,10 @@ alias bottle='prime-run bottles -b games'
 
 alias rest='sudo cp -r ~/prj/wp_rest /srv/http/wordpress/wp-content/themes/'
 
+alias enterdocker='docker exec -it joomla /bin/bash'
+
+alias steam='echo nah'
+
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh
 

@@ -9,7 +9,8 @@
         "mods":"~/.local/share/bottles/bottles/games/drive_c/users/steamuser/Documents/Paradox\\ Interactive/",
         "http":"/srv/http/",
         "httpd":"/etc/httpd/conf/",
-        "hosts":"/etc/hosts"
+        "hosts":"/etc/hosts",
+        "venv":"~/prj/.venv/"
     },
     "functions":[
         "server"

@@ -16,14 +16,16 @@ alias backup='python ~/run/backup.py'
 alias kb='python ~/run/knowledge.py'
 
 alias runserver='python manage.py runserver'
+alias runpython='python -m http.server 8000'
 alias bashrc='source ~/.bashrc'
 alias bottle='prime-run bottles -b games'
+alias enterdocker='docker exec -it joomla /bin/bash'
 
 alias rest='sudo cp -r ~/prj/wp_rest /srv/http/wordpress/wp-content/themes/'
 
-alias enterdocker='docker exec -it joomla /bin/bash'
-
 alias steam='echo nah'
+
+alias tanya='cd ~/prj/college/grace/'
 
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh

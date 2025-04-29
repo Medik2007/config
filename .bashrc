@@ -8,6 +8,7 @@ alias nv='nvim'
 alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
+alias du='du -hd 1'
 alias grep='grep --color=auto'
 alias feh='feh --keep-zoom-vp --draw-filename'
 
@@ -20,10 +21,11 @@ alias runpython='python -m http.server 8000'
 alias bashrc='source ~/.bashrc'
 alias bottle='prime-run bottles -b games'
 alias enterdocker='docker exec -it joomla /bin/bash'
+alias vcb='/home/medik/stf/games/VCB/vcb.x86_64'
 
 alias rest='sudo cp -r ~/prj/wp_rest /srv/http/wordpress/wp-content/themes/'
 
-alias steam='echo nah'
+#alias steam='echo nah'
 
 alias tanya='cd ~/prj/college/grace/'
 

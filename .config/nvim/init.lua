@@ -65,6 +65,8 @@ require("lazy").setup({
     "ellisonleao/glow.nvim",
 
     'kdheepak/lazygit.nvim',
+
+    'EdenEast/nightfox.nvim',
 })
 
 

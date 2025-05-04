@@ -25,6 +25,8 @@ alias vcb='/home/medik/stf/games/VCB/vcb.x86_64'
 
 alias rest='sudo cp -r ~/prj/wp_rest /srv/http/wordpress/wp-content/themes/'
 
+alias django_files='cd ~/prj/.venv/college/lib/python3.13/site-packages/django/contrib'
+
 #alias steam='echo nah'
 
 alias tanya='cd ~/prj/college/grace/'

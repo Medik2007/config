@@ -30,7 +30,7 @@ alias django_files='cd ~/prj/.venv/college/lib/python3.13/site-packages/django/c
 
 #alias steam='echo nah'
 
-alias tanya='cd ~/prj/college/grace/'
+alias tanya='cd ~/prj/college/website && act college'
 
 source ~/.local/share/blesh/ble.sh
 source ~/run/utils/run.sh

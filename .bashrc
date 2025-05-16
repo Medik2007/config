@@ -24,6 +24,7 @@ alias enterdocker='docker exec -it joomla /bin/bash'
 alias vcb='/home/medik/stf/games/VCB/vcb.x86_64'
 
 alias rest='sudo cp -r ~/prj/wp_rest /srv/http/wordpress/wp-content/themes/'
+alias tanya='prj/college/website && act college'
 
 alias django_files='cd ~/prj/.venv/college/lib/python3.13/site-packages/django/contrib'
 

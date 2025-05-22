@@ -36,6 +36,7 @@ class Backup():
                 os.chdir('nts')
                 print('\n===> Notes backup\n')
                 self.backup('notes')
+                os.chdir(os.path.expanduser('~'))
             
             print('\n===> Projects backup')
             if os.path.isdir('prj'):

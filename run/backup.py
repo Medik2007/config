@@ -37,6 +37,12 @@ class Backup():
                 print('\n===> Notes backup\n')
                 self.backup('notes')
                 os.chdir(os.path.expanduser('~'))
+
+            if os.path.isdir('~/.password-store'):
+                os.chdir('~/.password-store')
+                print('\n===> Passwords backup\n')
+                self.backup('pass')
+                os.chdir(os.path.expanduser('~'))
             
             print('\n===> Projects backup')
             if os.path.isdir('prj'):

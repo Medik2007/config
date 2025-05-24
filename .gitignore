@@ -41,8 +41,5 @@
 
 !.config/libinput-gestures.conf
 
-!.password-store/
-!.password-store/**
-
 **.tmp
 **.txt

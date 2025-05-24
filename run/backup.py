@@ -38,8 +38,8 @@ class Backup():
                 self.backup('notes')
                 os.chdir(os.path.expanduser('~'))
 
-            if os.path.isdir('~/.password-store'):
-                os.chdir('~/.password-store')
+            if os.path.isdir('.password-store'):
+                os.chdir('.password-store')
                 print('\n===> Passwords backup\n')
                 self.backup('pass')
                 os.chdir(os.path.expanduser('~'))

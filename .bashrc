@@ -9,6 +9,8 @@ alias ls='ls --color=auto'
 alias l1='ls -1'
 alias ll='ls -goh'
 alias du='du -hd 1'
+alias rmr='rm -i'
+alias rm='trash'
 alias grep='grep --color=auto'
 alias feh='feh --keep-zoom-vp --draw-filename'
 
@@ -28,7 +30,7 @@ alias tanya='prj/college/website && act college'
 
 alias django_files='cd ~/prj/.venv/college/lib/python3.13/site-packages/django/contrib'
 
-#alias steam='echo nah'
+alias steam='echo nah'
 
 alias tanya='cd ~/prj/college/website && act college'
 

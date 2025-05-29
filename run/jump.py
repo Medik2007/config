@@ -34,7 +34,7 @@ class Jump():
 
         if dest in FUNCTIONS:
             if dest == 'server':
-                os.system(f'sh -c "sshpass -f {PATH}/config/pswd.txt ssh cz18090@185.114.247.170; exec $SHELL"')
+                os.system(f'sh -c "sshpass -f {PATH}/config/pswd.txt ssh cz18090@188.225.23.146; exec $SHELL"')
             return
         
         for dir in JUMP_DIRS:

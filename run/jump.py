@@ -47,9 +47,11 @@ class Jump():
                     # DJANGO
                     if os.path.isfile(f'manage.py'):
                         if not args.server and not args.code:
+                            os.system(f'kitty @ launch --type tab --cwd current {self.act_run(dest, "sass --watch .:. --no-source-map")}')
                             os.system(f'kitty @ launch --type tab --cwd current {self.act_run(dest, "nvim")}')
                             os.system(self.act_run(dest, 'python manage.py runserver 0.0.0.0:8000'))
                         elif args.code:
+                            os.system(f'kitty @ launch --type tab --cwd current {self.act_run(dest, "sass --watch .:. --no-source-map")}')
                             os.system(self.act_run(dest, 'nvim'))
                         elif args.server:
                             os.system(self.act_run(dest, 'python manage.py runserver 0.0.0.0:8000'))

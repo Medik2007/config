@@ -36,6 +36,7 @@ require('mason-lspconfig').setup({
     ensure_installed = {
         'html',
         'cssls',
+        'somesass_ls',
         'bashls',
         'jsonls',
         'clangd',

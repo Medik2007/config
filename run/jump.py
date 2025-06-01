@@ -19,6 +19,7 @@ FUNCTIONS = data['functions']
 
 
 
+
 class Jump():
 
     def act_run(self, dest, command):

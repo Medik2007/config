@@ -13,6 +13,7 @@ alias rmr='rm -i'
 alias rm='trash'
 alias grep='grep --color=auto'
 alias feh='feh --keep-zoom-vp --draw-filename'
+alias wifi='nmcli dev wifi'
 
 alias ju='python ~/run/jump.py'
 alias backup='python ~/run/backup.py'

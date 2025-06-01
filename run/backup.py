@@ -2,7 +2,6 @@ import argparse, os
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
-# checking changes
 
 class Backup():
 

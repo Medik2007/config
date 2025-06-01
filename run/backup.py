@@ -14,10 +14,14 @@ class Backup():
         if not os.path.isdir('.git'):
             print('No git repo was found')
             os.system('git init')
+            os.system('git branch backup')
             os.system(f'gh repo create {repo} --private || echo "Github repo already exists"')
             os.system(f'git remote add origin git@github.com:Medik2007/{repo}.git')
             print('Git repo created and remote added')
         print('Searching for changes...')
+
+        os.system('git branch backup')
+
         os.system('git add -A')
         if os.system('git diff --quiet && git diff --cached --quiet'):
             print('Uploading changes...')

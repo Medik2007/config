@@ -19,11 +19,7 @@ class Backup():
             os.system(f'git remote add origin git@github.com:Medik2007/{repo}.git')
             print('Git repo created and remote added')
         print('Searching for changes...')
-<<<<<<< HEAD
         os.system('git switch -q backup')
-=======
-        os.system('git switch backup')
->>>>>>> backup
         os.system('git add -A')
         if os.system('git diff --quiet && git diff --cached --quiet'):
             print('Uploading changes...')
@@ -31,12 +27,7 @@ class Backup():
             os.system('git push origin backup')
         else:
             print('There are no changes')
-<<<<<<< HEAD
         os.system('git switch -q master')
-=======
-            os.system('git push origin backup')
-        os.system('git switch master')
->>>>>>> backup
 
     def main(self, args):
         os.chdir(os.path.expanduser('~'))

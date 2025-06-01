@@ -27,7 +27,6 @@ class Backup():
             os.system('git push origin backup')
         else:
             print('There are no changes')
-        os.system('git switch -q master')
 
     def main(self, args):
         os.chdir(os.path.expanduser('~'))

@@ -30,6 +30,7 @@ class Backup():
             os.system('git push origin backup')
         os.system('git switch master')
 
+
     def main(self, args):
         os.chdir(os.path.expanduser('~'))
         if not args.repo:

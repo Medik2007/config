@@ -24,7 +24,7 @@ class Backup():
         if os.system('git diff --quiet && git diff --cached --quiet'):
             print('Uploading changes...')
             os.system('git commit -m "Backup"')
-            os.system('git push origin master')
+            os.system('git push origin backup')
         else:
             print('There are no changes')
         os.system('git switch master')

@@ -27,10 +27,16 @@ class Backup():
 
         print('Searching for changes...')
 
-        stream = os.popen("git rev-parse --abbrev-ref HEAD")
-        branch = stream.read().strip()
+        branch = 'master' # stream = os.popen("git rev-parse --abbrev-ref HEAD") ; branch = stream.read().strip()
+        dev_branch = os.system(f'git show-ref --verify --quiet refs/heads/dev')
+        if dev_branch == 0:
+            branch = 'dev'
 
         os.system('git stash push -u -m "Auto-backup stash"')
+        backup_branch = os.system(f'git show-ref --verify --quiet refs/heads/backup')
+        if backup_branch != 0:
+            os.system(f'git branch -b backup {branch}')
+
         os.system('git checkout backup')
 
         os.system('git stash apply -q')

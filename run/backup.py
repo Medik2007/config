@@ -1,4 +1,5 @@
 import argparse, os
+from datetime import datetime
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -10,6 +11,7 @@ class Backup():
         local_cmd = f'sshpass -f {PATH}/config/pswd.txt ssh -t cz18090@185.114.247.170 "{server_cmd}"' 
         os.system(local_cmd)
 
+
     def backup(self, repo):
         if not os.path.isdir('.git'):
             print('No git repo was found')
@@ -18,16 +20,32 @@ class Backup():
             os.system(f'gh repo create {repo} --private || echo "Github repo already exists"')
             os.system(f'git remote add origin git@github.com:Medik2007/{repo}.git')
             print('Git repo created and remote added')
+
         print('Searching for changes...')
-        os.system('git switch -q backup')
+
+        stream = os.popen("git rev-parse --abbrev-ref HEAD")
+        branch = stream.read().strip()
+
+        os.system('git stash push -u -m "Auto-backup stash"')
+        backup_branch = os.system('git checkout backup')
+        if backup_branch != 0:
+            print("Backup branch doesn't exist, creating it...")
+            os.system("git checkout -b backup")
+
+        os.system('git stash apply')
         os.system('git add -A')
-        if os.system('git diff --quiet && git diff --cached --quiet'):
-            print('Uploading changes...')
-            os.system('git commit -m "Backup"')
-            os.system('git push origin backup')
+        
+        commit_message = f'Backup on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
+        ret = os.system(f'git commit -m "{commit_message}"')
+        if ret != 0:
+            print("No changes to commit")
         else:
-            print('There are no changes')
-        os.system('git switch -q master')
+            print('Uploading changes...')
+            os.system('git push --force origin backup')
+
+        os.system(f'git checkout {branch}')
+        os.system('git stash pop')
+
 
     def main(self, args):
         os.chdir(os.path.expanduser('~'))

@@ -1,8 +1,6 @@
 import argparse, os
 from datetime import datetime
 
-# testing
-
 PATH = os.path.dirname(os.path.abspath(__file__))
 
 

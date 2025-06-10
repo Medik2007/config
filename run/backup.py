@@ -27,9 +27,7 @@ class Backup():
         os.system('git add -A')
         commit_message = f'Backup on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
         ret = os.system(f'git commit -m "{commit_message}"')
-        if ret != 0:
-            print("No changes to commit")
-        else:
+        if ret == 0:
             print('Uploading changes...')
             os.system('git push --force origin backup')
 

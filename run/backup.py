@@ -3,10 +3,6 @@ from datetime import datetime
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
-# aaarrr
-# ayo homie how u doin
-# just testin
-
 
 class Backup():
 
@@ -20,28 +16,14 @@ class Backup():
         if not os.path.isdir('.git'):
             print('No git repo was found')
             os.system('git init')
-            os.system('git branch backup')
+            os.system('git branch -b backup')
             os.system(f'gh repo create {repo} --private || echo "Github repo already exists"')
             os.system(f'git remote add origin git@github.com:Medik2007/{repo}.git')
             print('Git repo created and remote added')
 
         print('Searching for changes...')
-
-        branch = 'master' # stream = os.popen("git rev-parse --abbrev-ref HEAD") ; branch = stream.read().strip()
-        dev_branch = os.system(f'git show-ref --verify --quiet refs/heads/dev')
-        if dev_branch == 0:
-            branch = 'dev'
-
-        os.system('git stash push -u -m "Auto-backup stash"')
-        backup_branch = os.system(f'git show-ref --verify --quiet refs/heads/backup')
-        if backup_branch != 0:
-            os.system(f'git branch -b backup {branch}')
-
-        os.system('git checkout backup')
-
-        os.system('git stash apply -q')
+        os.system('git checkout -B backup')
         os.system('git add -A')
-        
         commit_message = f'Backup on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
         ret = os.system(f'git commit -m "{commit_message}"')
         if ret != 0:
@@ -49,9 +31,6 @@ class Backup():
         else:
             print('Uploading changes...')
             os.system('git push origin backup')
-
-        os.system(f'git checkout {branch}')
-        os.system('git stash pop -q')
 
 
     def main(self, args):

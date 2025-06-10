@@ -3,8 +3,6 @@ from datetime import datetime
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
-#testing
-
 
 
 class Backup():

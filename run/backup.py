@@ -29,9 +29,6 @@ class Backup():
 
         os.system('git stash push -u -m "Auto-backup stash"')
         backup_branch = os.system('git checkout backup')
-        if backup_branch != 0:
-            print("Backup branch doesn't exist, creating it...")
-            os.system("git checkout -b backup")
 
         os.system('git stash apply -q')
         os.system('git add -A')
@@ -45,11 +42,7 @@ class Backup():
             os.system('git push origin backup')
 
         os.system(f'git checkout {branch}')
-<<<<<<< Updated upstream
-        os.system('git stash drop')
-=======
         os.system('git stash pop -q')
->>>>>>> Stashed changes
 
 
     def main(self, args):

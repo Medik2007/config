@@ -52,6 +52,7 @@ class Backup():
         if not args.repo:
             print('\n===> System backup\n')
             self.backup('config')
+            return
 
             if os.path.isdir('nts'):
                 os.chdir('nts')

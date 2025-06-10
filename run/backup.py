@@ -47,7 +47,11 @@ class Backup():
         os.system(f'git checkout {branch}')
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         os.system('git stash pop')
+=======
+        os.system('git stash pop -q')
+>>>>>>> Stashed changes
 =======
         os.system('git stash pop -q')
 >>>>>>> Stashed changes

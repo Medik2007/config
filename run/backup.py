@@ -45,7 +45,11 @@ class Backup():
             os.system('git push origin backup')
 
         os.system(f'git checkout {branch}')
+<<<<<<< Updated upstream
         os.system('git stash drop')
+=======
+        os.system('git stash pop -q')
+>>>>>>> Stashed changes
 
 
     def main(self, args):

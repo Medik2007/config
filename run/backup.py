@@ -31,7 +31,7 @@ class Backup():
             print("No changes to commit")
         else:
             print('Uploading changes...')
-            os.system('git push origin backup')
+            os.system('git push --force origin backup')
 
 
     def main(self, args):

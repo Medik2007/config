@@ -3,6 +3,8 @@ from datetime import datetime
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
+#testing
+
 
 
 class Backup():
@@ -28,7 +30,7 @@ class Backup():
         branch = stream.read().strip()
 
         os.system('git stash push -u -m "Auto-backup stash"')
-        backup_branch = os.system('git checkout backup')
+        os.system('git checkout backup')
 
         os.system('git stash apply -q')
         os.system('git add -A')

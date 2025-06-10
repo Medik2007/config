@@ -23,7 +23,7 @@ class Backup():
             print('Git repo created and remote added')
 
         print('Searching for changes...')
-        os.system('git checkout -B backup')
+        os.system('git checkout -q -B backup')
         os.system('git add -A')
         commit_message = f'Backup on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
         ret = os.system(f'git commit -m "{commit_message}"')

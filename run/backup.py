@@ -33,7 +33,7 @@ class Backup():
             print("Backup branch doesn't exist, creating it...")
             os.system("git checkout -b backup")
 
-        os.system('git stash apply')
+        os.system('git stash apply -q')
         os.system('git add -A')
         
         commit_message = f'Backup on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
@@ -46,7 +46,11 @@ class Backup():
 
         os.system(f'git checkout {branch}')
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         os.system('git stash pop')
+=======
+        os.system('git stash pop -q')
+>>>>>>> Stashed changes
 =======
         os.system('git stash pop -q')
 >>>>>>> Stashed changes

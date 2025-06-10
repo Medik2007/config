@@ -31,12 +31,9 @@ class Backup():
         branch = stream.read().strip()
 
         os.system('git stash push -u -m "Auto-backup stash"')
-        backup_branch = os.system('git checkout backup')
-        if backup_branch != 0:
-            print("Backup branch doesn't exist, creating it...")
-            os.system("git checkout -b backup")
+        os.system('git checkout backup')
 
-        os.system('git stash apply')
+        os.system('git stash apply -q')
         os.system('git add -A')
         
         commit_message = f'Backup on {datetime.now().strftime("%Y-%m-%d %H:%M:%S")}'
@@ -45,10 +42,10 @@ class Backup():
             print("No changes to commit")
         else:
             print('Uploading changes...')
-            os.system('git push --force origin backup')
+            os.system('git push origin backup')
 
         os.system(f'git checkout {branch}')
-        os.system('git stash pop')
+        os.system('git stash pop -q')
 
 
     def main(self, args):

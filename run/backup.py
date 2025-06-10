@@ -46,6 +46,7 @@ class Backup():
 
         os.system(f'git checkout {branch}')
         os.system('git stash pop')
+        os.system('git stash drop')
 
 
     def main(self, args):

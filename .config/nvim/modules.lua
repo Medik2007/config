@@ -23,4 +23,5 @@ require('nvim-treesitter.configs').setup {
 require'alpha'.setup(require'alpha.themes.dashboard'.config)
 
 vim.cmd[[colorscheme tokyonight-night]]
---vim.cmd[[colorscheme duskfox]]
+--vim.cmd[[colorscheme dayfox]]
+vim.cmd[[colorscheme duskfox]]

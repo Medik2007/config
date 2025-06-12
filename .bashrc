@@ -20,6 +20,8 @@ alias backup='python ~/run/backup.py'
 alias kb='python ~/run/knowledge.py'
 
 alias runserver='python manage.py runserver'
+alias dj_make='python manage.py makemigrations'
+alias dj_mig='python manage.py migrate'
 alias runpython='python -m http.server 8000'
 alias bashrc='source ~/.bashrc'
 alias bottle='prime-run bottles -b games'

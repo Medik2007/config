@@ -3,7 +3,7 @@ from datetime import datetime
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
-# git merge backup --squash
+# git checkout backup -- .
 # git commit -m "Big achievment ready"
 
 class Backup():

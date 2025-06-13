@@ -1,10 +1,8 @@
 #!/bin/bash
 
-default_PS1() {
-    export PS1='\n\e[0;35m[$(hostname)] \e[0;37m(\w) \e[0;35m$(git_branch)\e[0m\n~> '
-
+venv_prompt() {
+  [ -n "$VIRTUAL_ENV" ] && echo "($(basename "$VIRTUAL_ENV"))"
 }
-
 git_branch() {
   branch=$(git symbolic-ref --short HEAD 2>/dev/null)
   if [ -n "$branch" ]; then
@@ -12,18 +10,16 @@ git_branch() {
   fi
 }
 
+export PS1='\n\e[0;35m[$(hostname)] \e[0;37m(\w) \e[0;35m$(git_branch) \e[0;35m$(venv_prompt)\e[0m\n~> '
+
 
 act() {
     if [[ $1 ]]; then
-        source ~/prj/.venv/$1/bin/activate &&
-        export PS1='\n\e[0;35m[$(hostname)] \e[0;37m(\w) \e[0;35m$(git_branch) \e[0;35m($(basename $VIRTUAL_ENV))\e[0m\n~> '
+        source ~/prj/.venv/$1/bin/activate
     else
-        source bin/activate &&
-        export PS1='\n\e[0;35m[$(hostname)] \e[0;37m(\w) \e[0;35m$(git_branch) \e[0;35m($(basename $VIRTUAL_ENV))\e[0m\n~> '
+        source bin/activate
     fi
 }
-
 deact() {
     deactivate
-    default_PS1
 }

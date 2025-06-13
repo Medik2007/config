@@ -44,7 +44,6 @@ shopt -s autocd
 shopt -s extglob
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-default_PS1
 
 [[ ! -d "$HOME/Downloads/" ]] || rmdir $HOME/Downloads/
 [[ ! -d "$HOME/Documents/" ]] || rmdir $HOME/Documents/
